@@ -105,7 +105,7 @@ collections:
     description: >-
       Skladbe za SonicTribe Radio. Naloži MP3 (priporočeno 192 kbps) in vpiši naslov ter izvajalca –
       trajanje, album, leto, naslovnica ter povezavi na Apple Music in Deezer se v nekaj minutah dopolnijo same. Za Spotify, YouTube in Tidal prilepi povezavo, sicer gumb odpre iskanje skladbe.
-      Kar vpišeš sam, ima prednost.
+      Kar vpišeš sam, ima prednost. WAV/AIFF/FLAC najprej pretvori v MP3: sonictribe.net/admin/pretvornik.html
     folder: src/content/radio
     create: true
     slug: '{{fields.izvajalec}}-{{fields.title}}'

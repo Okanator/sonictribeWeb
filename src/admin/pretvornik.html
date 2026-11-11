@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pretvornik WAV → MP3</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+  :root{--ink:#231F20;--red:#EC1C24;--line:#E4E4E6;--mute:#6b6667;--bg:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+  header img{width:150px;height:auto}
+  header a{color:var(--mute);font-size:13px;text-decoration:none}
+  h1{font-size:28px;line-height:1.15;margin:0 0 8px}
+  p.lead{color:var(--mute);margin:0 0 28px}
+  .row{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px}
+  label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600}
+  input[type=text],select{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;min-width:220px;background:#fff;color:var(--ink)}
+  .drop{border:2px dashed #cfcbcc;border-radius:14px;padding:44px 20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+  .drop.on{border-color:var(--red);background:#fff5f5}
+  .drop b{display:block;font-size:18px;margin-bottom:4px}
+  .drop span{color:var(--mute);font-size:13px}
+  ul{list-style:none;padding:0;margin:24px 0 0}
+  li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+  li .n{font-weight:600;overflow-wrap:anywhere}
+  li .s{color:var(--mute);font-size:13px}
+  li a{color:var(--red);font-weight:600;text-decoration:none;font-size:13px}
+  .bar{grid-column:1/-1;height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--red);transition:width .2s}
+  .err{color:var(--red)}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;font:600 14px system-ui,sans-serif;text-decoration:none;cursor:pointer}
+  .btn.line{background:#fff;color:var(--ink)}
+  .btn[disabled]{opacity:.4;cursor:default}
+  .note{margin-top:32px;padding:16px 18px;background:#f6f5f5;border-radius:10px;font-size:13px;color:var(--mute)}
+  .note b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="/img/brand/sonictribe-logo-black.png" alt="SonicTribe">
+    <a href="/admin/">← Nazaj v urejevalnik</a>
+  </header>
+  <h1>Pretvornik WAV → MP3 za radio</h1>
+  <p class="lead">Pretvorba poteka v tvojem brskalniku – datoteke ne gredo nikamor. Nato MP3-je naloži na radio.</p>
+
+  <div class="row">
+    <label>Izvajalec (neobvezno)
+      <input type="text" id="artist" placeholder="npr. Batista Cadillac">
+    </label>
+    <label>Kakovost
+      <select id="kbps">
+        <option value="192">192 kbps – priporočeno za radio</option>
+        <option value="256">256 kbps</option>
+        <option value="320">320 kbps – največja velikost</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="drop" id="drop" tabindex="0" role="button">
+    <b>Povleci WAV, AIFF ali FLAC datoteke sem</b>
+    <span>ali klikni za izbiro · več datotek naenkrat</span>
+    <input type="file" id="file" accept=".wav,.wave,.aif,.aiff,.flac,audio/*" multiple hidden>
+  </div>
+
+  <ul id="list"></ul>
+
+  <div class="actions">
+    <button class="btn" id="zip" disabled>Prenesi vse (ZIP)</button>
+    <a class="btn line" href="https://github.com/Okanator/sonictribeWeb/upload/main/src/audio" target="_blank" rel="noopener">Naloži MP3-je na radio →</a>
+  </div>
+
+  <div class="note">
+    <b>Kako naprej:</b> prenesi MP3-je, odpri »Naloži MP3-je na radio«, jih povleci tja in klikni <b>Commit changes</b>.
+    V nekaj minutah se pojavijo v urejevalniku pod <b>Radio</b> z naslovnico in povezavami.<br><br>
+    Če vpišeš izvajalca, dobi vsaka datoteka ime »Izvajalec - Naslov.mp3«, da radio pravilno prepozna skladbo.
+    Številke skladb na začetku imena se odstranijo.
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(function () {
+  var drop = document.getElementById('drop'), input = document.getElementById('file'), list = document.getElementById('list');
+  var zipBtn = document.getElementById('zip'), done = [], queue = [], busy = false;
+
+  drop.addEventListener('click', function () { input.click() });
+  drop.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click() } });
+  ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('on') }) });
+  ['dragleave', 'drop'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove('on') }) });
+  drop.addEventListener('drop', function (e) { add(e.dataTransfer.files) });
+  input.addEventListener('change', function () { add(input.files); input.value = '' });
+
+  function outName(name) {
+    var base = name.replace(/\.[^.]+$/, '').replace(/^\d+[\s._-]*/, '').replace(/_/g, ' ').trim();
+    var a = document.getElementById('artist').value.trim();
+    if (a && base.toLowerCase().indexOf(a.toLowerCase() + ' - ') !== 0) base = a + ' - ' + base;
+    return base.replace(/[\\/:*?"<>|]/g, '') + '.mp3';
+  }
+  function mb(n) { return (n / 1048576).toFixed(1) + ' MB' }
+
+  function add(files) {
+    [].forEach.call(files, function (f) {
+      var li = document.createElement('li');
+      li.innerHTML = '<div class="n"></div><div class="s">čaka …</div><div class="bar"><i></i></div>';
+      li.querySelector('.n').textContent = f.name;
+      list.appendChild(li);
+      queue.push({ file: f, li: li });
+    });
+    next();
+  }
+
+  function next() {
+    if (busy || !queue.length) return;
+    busy = true;
+    var job = queue.shift();
+    convert(job).catch(function (e) {
+      job.li.querySelector('.s').innerHTML = '<span class="err">Napaka: ' + (e && e.message ? e.message : e) + '</span>';
+    }).then(function () { busy = false; next() });
+  }
+
+  function convert(job) {
+    var s = job.li.querySelector('.s'), bar = job.li.querySelector('.bar i');
+    s.textContent = 'berem …';
+    return job.file.arrayBuffer().then(function (buf) {
+      var Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+      var ctx = new Ctx(2, 44100, 44100);
+      return new Promise(function (res, rej) { ctx.decodeAudioData(buf, res, function () { rej(new Error('formata ni mogoče prebrati v tem brskalniku')) }) });
+    }).then(function (audio) {
+      // decodeAudioData vrne zvok, prevzorčen na 44,1 kHz
+      var kbps = parseInt(document.getElementById('kbps').value, 10);
+      var ch = Math.min(2, audio.numberOfChannels);
+      var L = audio.getChannelData(0), R = ch > 1 ? audio.getChannelData(1) : L;
+      var enc = new lamejs.Mp3Encoder(ch, audio.sampleRate, kbps);
+      var block = 1152, out = [], i = 0, n = L.length;
+      var l16 = new Int16Array(block), r16 = new Int16Array(block);
+      function toI16(src, dst, off, len) {
+        for (var k = 0; k < len; k++) {
+          var v = src[off + k] + (Math.random() - Math.random()) / 32768; // TPDF dither
+          v = v < -1 ? -1 : v > 1 ? 1 : v;
+          dst[k] = v < 0 ? v * 32768 : v * 32767;
+        }
+      }
+      s.textContent = 'pretvarjam …';
+      return new Promise(function (res) {
+        (function chunk() {
+          var t = performance.now();
+          while (i < n && performance.now() - t < 40) {
+            var len = Math.min(block, n - i);
+            toI16(L, l16, i, len); if (ch > 1) toI16(R, r16, i, len);
+            var mp3 = ch > 1 ? enc.encodeBuffer(l16.subarray(0, len), r16.subarray(0, len)) : enc.encodeBuffer(l16.subarray(0, len));
+            if (mp3.length) out.push(new Uint8Array(mp3));
+            i += len;
+          }
+          bar.style.width = (i / n * 100).toFixed(1) + '%';
+          if (i < n) return setTimeout(chunk, 0);
+          var end = enc.flush(); if (end.length) out.push(new Uint8Array(end));
+          res(new Blob(out, { type: 'audio/mpeg' }));
+        })();
+      });
+    }).then(function (blob) {
+      var name = outName(job.file.name), url = URL.createObjectURL(blob);
+      done.push({ name: name, blob: blob });
+      s.innerHTML = '';
+      var a = document.createElement('a'); a.href = url; a.download = name; a.textContent = 'Prenesi ' + name + ' (' + mb(blob.size) + ')';
+      s.appendChild(a);
+      if (blob.size > 25 * 1048576) s.insertAdjacentHTML('beforeend', ' <span class="err">– večja od 25 MB, izberi nižjo kakovost</span>');
+      zipBtn.disabled = false;
+      zipBtn.textContent = 'Prenesi vse (ZIP, ' + done.length + ')';
+    });
+  }
+
+  zipBtn.addEventListener('click', function () {
+    if (!done.length) return;
+    zipBtn.disabled = true; zipBtn.textContent = 'pripravljam ZIP …';
+    var z = new JSZip();
+    done.forEach(function (d) { z.file(d.name, d.blob) });
+    z.generateAsync({ type: 'blob', compression: 'STORE' }).then(function (b) {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'sonictribe-radio-mp3.zip'; document.body.appendChild(a); a.click(); a.remove();
+      zipBtn.disabled = false; zipBtn.textContent = 'Prenesi vse (ZIP, ' + done.length + ')';
+    });
+  });
+})();
+</script>
+</body>
+</html>
