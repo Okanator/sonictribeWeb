@@ -2,6 +2,7 @@
 //  - trajanje (iz MP3), manjkajoči podatki iz ID3 oznak (naslov, izvajalec, album, leto, naslovnica)
 //  - manjkajoči podatki iz Apple Music kataloga (album, leto, naslovnica)
 //  - povezave do Apple Music in Deezer (ostale platforme: iskanje skladbe)
+//  - paketni uvoz: MP3-ji, naloženi naravnost v src/audio, dobijo vnos samodejno
 // Teče v GitHub Actions ob vsaki spremembi radia; ročno: node scripts/radio-meta.mjs
 import fs from "node:fs";
 import path from "node:path";
@@ -34,9 +35,40 @@ async function itunes(artist, title) {
   return (d.results || []).find((x) => norm(x.trackName).startsWith(t) && (norm(x.artistName).includes(a) || a.includes(norm(x.artistName))));
 }
 
-if (!fs.existsSync(DIR)) process.exit(0);
+const AUDIO = "src/audio";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const slugify = (s) => norm(s).replace(/ /g, "-").slice(0, 80) || "skladba";
+
+fs.mkdirSync(DIR, { recursive: true });
 fs.mkdirSync(IMG, { recursive: true });
 let changed = 0;
+
+// 0) Paketni uvoz: vsak MP3 v src/audio, ki še nima vnosa, dobi svoj vnos (podatki iz ID3 oznak)
+if (fs.existsSync(AUDIO)) {
+  const used = new Set(
+    fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))
+      .map((f) => matter(fs.readFileSync(path.join(DIR, f), "utf8")).data.datoteka)
+      .filter(Boolean).map((u) => decodeURIComponent(path.basename(u)))
+  );
+  for (const name of fs.readdirSync(AUDIO).filter((f) => /\.mp3$/i.test(f))) {
+    if (used.has(name)) continue;
+    let tags = {};
+    try { tags = (await parseBuffer(fs.readFileSync(path.join(AUDIO, name)), { mimeType: "audio/mpeg" })).common } catch {}
+    const base = name.replace(/\.mp3$/i, "").replace(/^\d+[\s._-]+/, "");
+    const guess = base.split(/\s+[-–]\s+/);
+    const izvajalec = tags.artist || (guess.length > 1 ? guess[0] : "");
+    const title = tags.title || (guess.length > 1 ? guess.slice(1).join(" - ") : base);
+    let slug = slugify(`${izvajalec} ${title}`), n = 2;
+    while (fs.existsSync(path.join(DIR, slug + ".md"))) slug = slugify(`${izvajalec} ${title}`) + "-" + n++;
+    // datoteko preimenuj v varno ime brez presledkov in šumnikov
+    const safe = slug + ".mp3";
+    if (safe !== name && !fs.existsSync(path.join(AUDIO, safe))) fs.renameSync(path.join(AUDIO, name), path.join(AUDIO, safe));
+    const file = fs.existsSync(path.join(AUDIO, safe)) ? safe : name;
+    fs.writeFileSync(path.join(DIR, slug + ".md"), matter.stringify("", { datoteka: "/audio/" + file, title, izvajalec, aktivno: true }));
+    console.log("➕ nova skladba", slug);
+    changed++;
+  }
+}
 
 for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
   const file = path.join(DIR, f);
@@ -69,6 +101,7 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
   // 2) Katalog + povezave (samo enkrat na skladbo)
   if (!d.povezave_iskane && d.izvajalec && d.title) {
     try {
+      await sleep(3500); // Apple: največ ~20 poizvedb na minuto
       const it = await itunes(d.izvajalec, d.title);
       if (it) {
         if (!d.album) d.album = it.collectionName;
