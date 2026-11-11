@@ -51,15 +51,30 @@ if (fs.existsSync(AUDIO)) {
       .map((f) => matter(fs.readFileSync(path.join(DIR, f), "utf8")).data.datoteka)
       .filter(Boolean).map((u) => decodeURIComponent(path.basename(u)))
   );
+  const known = new Set(
+    fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))
+      .map((f) => matter(fs.readFileSync(path.join(DIR, f), "utf8")).data)
+      .map((d) => norm(d.izvajalec) + "|" + norm(d.title))
+  );
   for (const name of fs.readdirSync(AUDIO).filter((f) => /\.(mp3|m4a)$/i.test(f))) {
     if (used.has(name)) continue;
     let tags = {};
     try { tags = (await parseBuffer(fs.readFileSync(path.join(AUDIO, name)), { mimeType: mime(name) })).common } catch {}
     const ext = path.extname(name).toLowerCase();
-    const base = name.replace(/\.(mp3|m4a)$/i, "").replace(/^\d+[\s._-]+/, "");
-    const guess = base.split(/\s+[-–]\s+/);
-    const izvajalec = tags.artist || (guess.length > 1 ? guess[0] : "");
-    const title = tags.title || (guess.length > 1 ? guess.slice(1).join(" - ") : base);
+    // ime datoteke: odstrani številko skladbe, »(MP3)«, »320kbps«, oznake masteringa …
+    const base = name.replace(/\.(mp3|m4a)$/i, "")
+      .replace(/_.*$/, "")
+      .replace(/\s*[\(\[]?(mp3|m4a|\d{3}\s*kbps|main|master(ed)?)[\)\]]?\s*/gi, " ")
+      .replace(/^\d+[\s._-]*/, "").trim();
+    const parts = base.split(/\s+[-–]\s+/).map((x) => x.trim()).filter(Boolean);
+    const num = parts.findIndex((x, i) => i > 0 && /^\d+$/.test(x));
+    const guessArtist = parts.length > 1 ? parts[0] : "";
+    const guessTitle = num > 0 ? parts.slice(num + 1).join(" - ") : parts.length > 1 ? parts.slice(1).join(" - ") : base.replace(/([a-zčšž])([A-ZČŠŽ])/g, "$1 $2");
+    const izvajalec = (tags.artist || guessArtist).trim();
+    const title = (tags.title || guessTitle).trim();
+    // preskoči, če skladba istega izvajalca in naslova že obstaja
+    if (known.has(norm(izvajalec) + "|" + norm(title))) { console.log("↷ že obstaja", name); fs.unlinkSync(path.join(AUDIO, name)); continue }
+    known.add(norm(izvajalec) + "|" + norm(title));
     let slug = slugify(`${izvajalec} ${title}`), n = 2;
     while (fs.existsSync(path.join(DIR, slug + ".md"))) slug = slugify(`${izvajalec} ${title}`) + "-" + n++;
     // datoteko preimenuj v varno ime brez presledkov in šumnikov
