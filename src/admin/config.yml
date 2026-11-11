@@ -2,7 +2,7 @@
 # Prijava poteka z GitHub računom, ki ima dostop do repozitorija.
 backend:
   name: github
-  repo: Okanator/sonictribe-web
+  repo: Okanator/sonictribeWeb
   branch: main
   commit_messages:
     create: 'Nov vnos: {{collection}} „{{slug}}“'
