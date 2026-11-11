@@ -7,7 +7,7 @@ izvajalec: "Batista Cadillac"
 velik_napis: "EMA 2022"
 opis: ""
 poziv: "več eme"
-fotografija: "https://cdn.prod.website-files.com/6af1f9cecfb65094f4011926/6af2ee4aa433691b18648deb_3699879.max-1280x1280.format-webp.webp"
+fotografija: "/img/uploads/batista-cadillac-ema-casovnica-fotografija.webp"
 izpostavljeno: false
 izhodisce: ""
 ideja: ""
