@@ -13,25 +13,19 @@ document.addEventListener('DOMContentLoaded', function () {
   var pill = $('.st-radio-pill'), dot = $('.st-radio-dot');
   if (pill && dot) { var eq = document.createElement('span'); eq.className = 'st-eq'; eq.setAttribute('aria-hidden', 'true'); eq.innerHTML = '<i></i><i></i><i></i><i></i>'; dot.parentNode.insertBefore(eq, dot.nextSibling) }
 
-  /* --- 360°: štetje + črta --- */
+  /* --- 360°: rdeča črta --- */
   var sec = $('.st-360-sec'), num = $('.st-360-num');
   if (sec && num) {
-    var label = num.firstChild;
-    if (!reduce && label && label.nodeType === 3) {
-      label.nodeValue = '0°';
-      var t0 = null, D = 2200;
-      var step = function (t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / D), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; label.nodeValue = Math.round(360 * e) + '°'; if (k < 1) requestAnimationFrame(step) };
-      setTimeout(function () { sec.classList.add('st-go'); requestAnimationFrame(step) }, 250);
-    } else sec.classList.add('st-go');
+    setTimeout(function () { sec.classList.add('st-go') }, 300);
   }
 
   /* --- pojavljanje ob drsenju --- */
   var groups = [
     ['.st-360-logo, .st-360-claim, .st-360-p', .12],
     ['.st-kicker, .st-hero-p', 0],
-    ['.st-art-card', .1],
-    ['.st-vid-head, .st-vg-item', .08],
-    ['.st-dos-head, .st-shop-item', .06],
+    ['.st-art-card', .15],
+    ['.st-vid-head, .st-vg-item', .12],
+    ['.st-dos-head, .st-shop-item', .1],
     ['.st-bp-col, .st-tm-row', .08],
     ['.st-footer-wrap > *', .08]
   ];
@@ -48,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     var h = $('.st-hero-h'); if (h) { h.classList.add('st-rv'); targets.push(h) }
     if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('st-in'); io.unobserve(e.target) } }) }, { rootMargin: '0px 0px -8% 0px' });
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { var el = e.target; el.classList.add('st-in'); io.unobserve(el); setTimeout(function () { el.classList.add('st-done') }, 1700 + (parseFloat(el.style.getPropertyValue('--d')) || 0) * 1000) } }) }, { rootMargin: '0px 0px -18% 0px', threshold: 0 });
       targets.forEach(function (el) { io.observe(el) });
     } else targets.forEach(function (el) { el.classList.add('st-in') });
   }
