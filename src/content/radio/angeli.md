@@ -1,7 +1,7 @@
 ---
 datoteka: /audio/angeli.mp3
 title: Angeli
-izvajalec: ''
+izvajalec: MRFY
 aktivno: true
 trajanje: 180.6
 ---

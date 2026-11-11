@@ -1,7 +1,7 @@
 ---
 datoteka: /audio/lok-napet.mp3
 title: Lok napet
-izvajalec: ''
+izvajalec: MRFY
 aktivno: true
 trajanje: 195
 ---

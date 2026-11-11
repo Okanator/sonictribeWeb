@@ -1,7 +1,7 @@
 ---
 datoteka: /audio/prjatucki.mp3
 title: Prjatucki
-izvajalec: ''
+izvajalec: MRFY
 aktivno: true
 trajanje: 216
 ---
