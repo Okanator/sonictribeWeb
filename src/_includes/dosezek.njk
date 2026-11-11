@@ -1,0 +1,41 @@
+---
+layout: base.njk
+pageCss: /css/pages.css
+scripts: ["/js/pages.js"]
+---
+<div class="st-pj">
+  <header class="st-pj-bar"><div class="st-pj-bar-in">
+    <a href="/" class="st-pj-home"><img src="/img/brand/sonictribe-logo-black.png" alt="SonicTribe" class="st-pj-logo"></a>
+    <div class="st-pj-sec">Skupaj smo ustvarili</div>
+    <a href="/#naredili" class="st-pj-back">← Vsi projekti</a>
+  </div></header>
+
+  <section class="st-pj-hero">
+    {% if fotografija %}<img src="{{ fotografija }}" alt="{{ title }}" class="st-pj-hero-img">{% endif %}
+    <div class="st-pj-hero-in">
+      <div class="st-pj-date">{{ datum }}</div>
+      {% if velik_napis %}<div class="st-pj-big">{{ velik_napis }}</div>{% endif %}
+      <div class="st-pj-artist">{{ izvajalec }}</div>
+      <h1 class="st-pj-title">{{ title }}</h1>
+    </div>
+  </section>
+
+  {% set parts = [["Izhodišče", izhodisce], ["Ideja", ideja], ["Izvedba", izvedba]] %}
+  {% for p in parts %}
+  {% if p[1] or (loop.last and opis) %}
+  <section class="st-pj-part">
+    <div class="st-pj-wrap">
+      <div class="st-pj-head"><h2 class="st-pj-h">{{ p[0] }}</h2><div class="st-pj-line"></div></div>
+      {% if p[1] %}<div class="st-pj-rt"><div class="w-richtext">{{ p[1] | md | safe }}</div></div>{% endif %}
+      {% if loop.last and opis %}<div class="st-pj-opis">{{ opis }}</div>{% endif %}
+    </div>
+  </section>
+  {% endif %}
+  {% endfor %}
+
+  <section class="st-pj-cta"><div class="st-pj-wrap st-pj-cta-in">
+    <div class="st-pj-cta-t">Naslednja zgodba je lahko tvoja.</div>
+    <a href="/#kontakt" class="st-pj-cta-btn">Piši nam</a>
+    <a href="/#naredili" class="st-pj-cta-link">← Nazaj na vse projekte</a>
+  </div></section>
+</div>

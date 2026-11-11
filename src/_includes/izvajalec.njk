@@ -1,0 +1,50 @@
+---
+layout: base.njk
+pageCss: /css/pages.css
+scripts: ["/js/pages.js"]
+---
+<div class="st-ar">
+  <header class="st-pj-bar"><div class="st-pj-bar-in">
+    <a href="/" class="st-pj-home"><img src="/img/brand/sonictribe-logo-black.png" alt="SonicTribe" class="st-pj-logo"></a>
+    <div class="st-pj-sec">Izvajalci</div>
+    <a href="/#izvajalci" class="st-pj-back">← Vsi izvajalci</a>
+  </div></header>
+
+  <section class="st-ar-hero">
+    {% if fotografija %}<img src="{{ fotografija }}" alt="{{ title }}" class="st-ar-img" style="object-position:{{ fokus or '50% 40%' }}">{% endif %}
+    <div class="st-ar-hero-in">
+      <div class="st-ar-kick">SonicTribe izvajalec</div>
+      <h1 class="st-ar-name">{{ title }}</h1>
+      {% if podnaslov %}<div class="st-ar-sub">{{ podnaslov }}</div>{% endif %}
+    </div>
+  </section>
+
+  <section class="st-ar-main"><div class="st-ar-wrap">
+    <div class="st-ar-bio">
+      <div class="st-ar-h">O izvajalcu</div>
+      <div class="st-ar-rt"><div class="w-richtext">{{ content | safe }}</div></div>
+    </div>
+    <div class="st-ar-side">
+      {% set listen = [["Spotify", spotify], ["Apple Music", apple_music], ["YouTube", youtube], ["Deezer", deezer]] %}
+      {% set follow = [["Instagram", instagram], ["Facebook", facebook], ["TikTok", tiktok], ["Spletna stran", spletna_stran]] %}
+      {% for group in [["Poslušaj", listen], ["Sledi", follow]] %}
+        {% set has = false %}{% for l in group[1] %}{% if l[1] %}{% set has = true %}{% endif %}{% endfor %}
+        {% if has %}
+        <div class="st-ar-h{% if not loop.first %} st-ar-h2{% endif %}">{{ group[0] }}</div>
+        <div class="st-ar-links">{% for l in group[1] %}{% if l[1] %}<a href="{{ l[1] }}" target="_blank" rel="noopener" class="st-ar-btn">{{ l[0] }}</a>{% endif %}{% endfor %}</div>
+        {% endif %}
+      {% endfor %}
+      <div class="st-ar-book">
+        <div class="st-ar-book-t">Booking</div>
+        <div class="st-ar-book-p">Za koncerte, dogodke in kampanje nam pišite.</div>
+        <a href="mailto:{{ booking or 'booking@sonictribe.net' }}" class="st-ar-book-btn">{{ booking or 'booking@sonictribe.net' }}</a>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="st-pj-cta"><div class="st-pj-wrap st-pj-cta-in">
+    <div class="st-pj-cta-t">Pripeljite jih na svoj oder.</div>
+    <a href="mailto:{{ booking or 'booking@sonictribe.net' }}" class="st-pj-cta-btn">Piši nam</a>
+    <a href="/#izvajalci" class="st-pj-cta-link">← Nazaj na vse izvajalce</a>
+  </div></section>
+</div>

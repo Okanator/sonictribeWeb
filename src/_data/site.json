@@ -1,0 +1,32 @@
+{
+  "ime": "SonicTribe",
+  "url": "https://www.sonictribe.net",
+  "seo_naslov": "SonicTribe – glasbena agencija 360°",
+  "seo_opis": "SonicTribe – agencija za glasbo. Booking izvajalcev za koncerte in dogodke, glasba in izvajalci za oglase in kampanje.",
+  "trditev": "Agencija za glasbo.",
+  "opis": "Booking izvajalcev za koncerte in dogodke. Glasba in izvajalci za oglase in kampanje.",
+  "radio_nowplaying_url": "",
+  "radio_stream_url": "",
+  "kontakt": {
+    "naslov": "Kontakt",
+    "podjetje": "SonicTribe d.o.o.",
+    "vrstice": [
+      "Grablovičeva ulica 1",
+      "1000 Ljubljana, Slovenija",
+      "Matična številka: 8260818000",
+      "ID za DDV: SI67181465",
+      "Davčna številka: 67181465"
+    ],
+    "email": "st@sonictribe.net"
+  },
+  "ekipa": [
+    { "vloga": "Direktorica", "ime": "Chantal van Mourik", "email": "chantal@sonictribe.net", "telefon": "" },
+    { "vloga": "Booking", "ime": "Janez Debeljak Johnny", "email": "booking@sonictribe.net", "telefon": "040 417 918" },
+    { "vloga": "Tehnika & merch", "ime": "Oskar Cafnik", "email": "mngmt@sonictribe.net", "telefon": "" }
+  ],
+  "socialna_omrezja": {
+    "facebook": "https://www.facebook.com/sonictribe.net",
+    "instagram": "https://instagram.com/sonictribe",
+    "youtube": "https://www.youtube.com/@sonictribe6553"
+  }
+}

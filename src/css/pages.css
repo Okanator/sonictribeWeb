@@ -1,0 +1,22 @@
+/* Podstrani: projekti (dosežki) in izvajalci */
+.st-pj-hero:after,.st-ar-hero:after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(35,31,32,.95) 0%,rgba(35,31,32,.55) 45%,rgba(35,31,32,.15) 100%)}
+.st-ar-hero:after{background:linear-gradient(to top,rgba(35,31,32,.92) 0%,rgba(35,31,32,.35) 45%,rgba(35,31,32,0) 75%)}
+.st-pj-hero-img,.st-ar-img{animation:stzoom 14s ease-out both}
+@keyframes stzoom{from{transform:scale(1.1)}to{transform:scale(1)}}
+.st-pj-hero-in>*,.st-ar-hero-in>*{animation:stup .9s cubic-bezier(.2,.8,.2,1) both}
+.st-pj-hero-in>*:nth-child(2),.st-ar-hero-in>*:nth-child(2){animation-delay:.1s}
+.st-pj-hero-in>*:nth-child(3),.st-ar-hero-in>*:nth-child(3){animation-delay:.2s}
+.st-pj-hero-in>*:nth-child(4){animation-delay:.3s}
+@keyframes stup{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.st-pj-back:hover{color:#EC1C24}.st-pj-cta-link:hover{color:#231F20}.st-pj-cta-btn:hover{background:#231F20;color:#fff}
+.st-pj-line{transform-origin:left;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.st-pj-part.st-in .st-pj-line{transform:scaleX(1)}
+.st-pj-part.st-alt{background-color:#F4F4F4}
+.st-ar-btn{transition:background .2s,color .2s,border-color .2s}
+.st-ar-btn:hover{background:#EC1C24;border-color:#EC1C24;color:#fff}
+.st-ar-btn:before{content:'\25B6';color:#EC1C24;font-size:9px;margin-right:8px;transition:color .2s}
+.st-ar-btn:hover:before{color:#fff}
+.st-ar-book-btn:hover{background:#fff;color:#231F20}
+@media (max-width:991px){.st-pj-big{font-size:96px!important}.st-pj-h{font-size:42px!important}.st-pj-cta-t{font-size:64px!important}.st-ar-wrap{flex-direction:column;gap:48px}.st-ar-side{flex:none!important}.st-ar-name{font-size:110px!important}}
+@media (max-width:600px){.st-pj-big{font-size:64px!important}.st-pj-artist{font-size:22px!important}.st-pj-title{font-size:19px!important}.st-pj-h{font-size:34px!important}.st-pj-head{gap:20px!important}.st-pj-part,.st-pj-cta,.st-ar-main{padding-top:64px!important;padding-bottom:64px!important}.st-pj-sec{display:none}.st-pj-cta-t{font-size:48px!important}.st-pj-hero,.st-ar-hero{min-height:76vh!important}.st-ar-name{font-size:72px!important}.st-ar-sub{font-size:18px!important}.st-ar-h{font-size:34px!important}}
+@media (prefers-reduced-motion:reduce){.st-pj-hero-img,.st-ar-img,.st-pj-hero-in>*,.st-ar-hero-in>*{animation:none}.st-pj-line{transform:none}}

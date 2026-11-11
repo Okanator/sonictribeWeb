@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title or site.seo_naslov }}</title>
+<meta name="description" content="{{ description or site.seo_opis }}">
+<meta property="og:title" content="{{ title or site.seo_naslov }}">
+<meta property="og:description" content="{{ description or site.seo_opis }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+{%- set og = fotografija or '/img/brand/og.jpg' -%}
+<meta property="og:image" content="{% if og[0] == '/' %}{{ site.url }}{% endif %}{{ og }}">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;600&family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/Frontage-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/webflow.css">
+<link rel="stylesheet" href="/css/site.css">
+{% if pageCss %}<link rel="stylesheet" href="{{ pageCss }}">{% endif %}
+<script>window.ST_CONFIG={{ {nowplaying: site.radio_nowplaying_url, stream: site.radio_stream_url} | json | safe }};</script>
+</head>
+<body>
+{{ content | safe }}
+{% for s in scripts or ['/js/site.js'] %}<script src="{{ s }}" defer></script>{% endfor %}
+</body>
+</html>

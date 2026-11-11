@@ -1,0 +1,24 @@
+name: Prenesi zunanje slike
+on:
+  push:
+    paths: ["src/content/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/localize-images.mjs
+      - name: Shrani spremembe
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "sonictribe-bot"
+            git config user.email "st@sonictribe.net"
+            git add -A
+            git commit -m "Slike prenesene na stran"
+            git push
+          fi
