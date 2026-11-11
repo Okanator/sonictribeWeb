@@ -1,24 +1,28 @@
-name: Prenesi zunanje slike
+name: Obdelaj vsebino (slike, radio)
 on:
   push:
-    paths: ["src/content/**"]
+    paths: ["src/content/**", "src/audio/**"]
   workflow_dispatch:
 permissions:
   contents: write
+concurrency: obdelava
 jobs:
   localize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
       - run: node scripts/localize-images.mjs
+      - run: node scripts/radio-meta.mjs
       - name: Shrani spremembe
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "sonictribe-bot"
             git config user.email "st@sonictribe.net"
             git add -A
-            git commit -m "Slike prenesene na stran"
+            git commit -m "Samodejno dopolnjeno: slike in podatki o skladbah"
+            git pull --rebase
             git push
           fi

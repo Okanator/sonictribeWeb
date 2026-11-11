@@ -1,0 +1,13 @@
+---
+permalink: /radio.json
+eleventyExcludeFromCollections: true
+---
+{%- set out = [] -%}
+{%- for t in collections.radio -%}
+{%- set out = (out.push({
+  id: t.fileSlug, title: t.data.title, artist: t.data.izvajalec, album: t.data.album, year: t.data.leto,
+  art: t.data.naslovnica, src: t.data.datoteka, dur: t.data.trajanje,
+  links: { spotify: t.data.spotify, apple_music: t.data.apple_music, youtube: t.data.youtube, deezer: t.data.deezer, tidal: t.data.tidal }
+}), out) -%}
+{%- endfor -%}
+{{ { epoch: 1767225600, tracks: out } | json | safe }}

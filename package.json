@@ -11,7 +11,9 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.8",
-    "markdown-it": "^14.3.3"
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.3.3",
+    "music-metadata": "^12.4.0"
   },
   "type": "module",
   "private": true

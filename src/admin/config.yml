@@ -99,6 +99,35 @@ collections:
       - { name: spletna_stran, label: Spletna stran, widget: string, required: false }
       - { name: booking, label: Booking e-pošta, widget: string, default: 'booking@sonictribe.net' }
 
+  - name: radio
+    label: Radio
+    label_singular: Skladba
+    description: >-
+      Skladbe za SonicTribe Radio. Naloži MP3 (priporočeno 192 kbps) in vpiši naslov ter izvajalca –
+      trajanje, album, leto, naslovnica in povezave na Spotify, Apple Music … se v nekaj minutah dopolnijo same.
+      Kar vpišeš sam, ima prednost.
+    folder: src/content/radio
+    create: true
+    slug: '{{fields.izvajalec}}-{{fields.title}}'
+    sortable_fields: ['izvajalec', 'title', 'leto']
+    summary: '{{izvajalec}} – {{title}}'
+    fields:
+      - { name: datoteka, label: MP3 datoteka, widget: file, media_folder: /src/audio, public_folder: /audio, hint: 'MP3, priporočeno 192 kbps (≈ 7 MB za 4 minute)' }
+      - { name: title, label: Naslov skladbe, widget: string }
+      - { name: izvajalec, label: Izvajalec, widget: string }
+      - { name: album, label: Album, widget: string, required: false, hint: 'pusti prazno – dopolni se samo' }
+      - { name: leto, label: Leto, widget: string, required: false, hint: 'pusti prazno – dopolni se samo' }
+      - { name: naslovnica, label: Naslovnica, widget: image, required: false, hint: 'pusti prazno – vzame se iz MP3 ali Apple Music' }
+      - { name: aktivno, label: Na sporedu, widget: boolean, default: true }
+      - { name: povezava, label: 'Povezava (neobvezno)', widget: string, required: false, hint: 'katerakoli povezava na skladbo (npr. Spotify), če je samodejno iskanje ne najde – ostale platforme se dopolnijo same' }
+      - { name: spotify, label: Spotify, widget: string, required: false }
+      - { name: apple_music, label: Apple Music, widget: string, required: false }
+      - { name: youtube, label: YouTube, widget: string, required: false }
+      - { name: deezer, label: Deezer, widget: string, required: false }
+      - { name: tidal, label: Tidal, widget: string, required: false }
+      - { name: trajanje, label: 'Trajanje (sekunde, samodejno)', widget: number, value_type: float, required: false }
+      - { name: povezave_iskane, label: 'Povezave že iskane (izklopi za ponovno iskanje)', widget: boolean, required: false, default: false }
+
   - name: nastavitve
     label: Nastavitve strani
     editor: { preview: false }

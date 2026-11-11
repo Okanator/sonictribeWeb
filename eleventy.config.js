@@ -10,6 +10,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.png": "favicon.png" });
+  eleventyConfig.addPassthroughCopy({ "src/audio": "audio" });
 
   // Collections (content edited in /admin)
   const sortBy = (key, dir = 1) => (a, b) =>
@@ -26,6 +27,13 @@ export default function (eleventyConfig) {
   );
   eleventyConfig.addCollection("izvajalci", (api) =>
     api.getFilteredByGlob("src/content/izvajalci/*.md").sort(sortBy("vrstni_red", 1))
+  );
+
+  eleventyConfig.addCollection("radio", (api) =>
+    api
+      .getFilteredByGlob("src/content/radio/*.md")
+      .filter((p) => p.data.datoteka && p.data.aktivno !== false && p.data.trajanje > 0)
+      .sort((a, b) => (a.fileSlug > b.fileSlug ? 1 : -1))
   );
 
   // Filters
