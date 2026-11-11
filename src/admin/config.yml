@@ -112,7 +112,7 @@ collections:
     sortable_fields: ['izvajalec', 'title', 'leto']
     summary: '{{izvajalec}} – {{title}}'
     fields:
-      - { name: datoteka, label: MP3 datoteka, widget: file, media_folder: /src/audio, public_folder: /audio, hint: 'MP3, priporočeno 192 kbps (≈ 7 MB za 4 minute)' }
+      - { name: datoteka, label: Zvočna datoteka (MP3 ali M4A), widget: file, media_folder: /src/audio, public_folder: /audio, hint: 'MP3 ali M4A, priporočeno 192 kbps (≈ 7 MB za 4 minute)' }
       - { name: title, label: Naslov skladbe, widget: string }
       - { name: izvajalec, label: Izvajalec, widget: string }
       - { name: album, label: Album, widget: string, required: false, hint: 'pusti prazno – dopolni se samo' }

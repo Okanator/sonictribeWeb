@@ -24,6 +24,6 @@ Spotify/YouTube/Tidal: prilepi povezavo, sicer gumb odpre iskanje skladbe. Radio
 Če kdaj dobite pravi pretok (stream), ga vpišete v Nastavitve strani → Radio in ima prednost.
 
 ### Paketni uvoz skladb
-Na GitHubu odpri mapo `src/audio` → **Add file → Upload files**, povleci vse MP3-je (do 100 naenkrat, vsak do 25 MB)
+Na GitHubu odpri mapo `src/audio` → **Add file → Upload files**, povleci vse MP3- ali M4A-datoteke (do 100 naenkrat, vsak do 25 MB)
 in klikni **Commit changes**. V nekaj minutah vsak MP3 dobi svoj vnos v /admin → Radio (naslov in izvajalec iz
 oznak v MP3 ali iz imena datoteke »Izvajalec - Naslov.mp3«), nato pa še trajanje, album, leto, naslovnico in povezave.

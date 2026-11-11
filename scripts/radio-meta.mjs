@@ -37,31 +37,33 @@ async function itunes(artist, title) {
 
 const AUDIO = "src/audio";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const mime = (f) => (/\.(m4a|mp4|aac)$/i.test(f) ? "audio/mp4" : "audio/mpeg");
 const slugify = (s) => norm(s).replace(/ /g, "-").slice(0, 80) || "skladba";
 
 fs.mkdirSync(DIR, { recursive: true });
 fs.mkdirSync(IMG, { recursive: true });
 let changed = 0;
 
-// 0) Paketni uvoz: vsak MP3 v src/audio, ki še nima vnosa, dobi svoj vnos (podatki iz ID3 oznak)
+// 0) Paketni uvoz: vsak MP3/M4A v src/audio, ki še nima vnosa, dobi svoj vnos (podatki iz ID3 oznak)
 if (fs.existsSync(AUDIO)) {
   const used = new Set(
     fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))
       .map((f) => matter(fs.readFileSync(path.join(DIR, f), "utf8")).data.datoteka)
       .filter(Boolean).map((u) => decodeURIComponent(path.basename(u)))
   );
-  for (const name of fs.readdirSync(AUDIO).filter((f) => /\.mp3$/i.test(f))) {
+  for (const name of fs.readdirSync(AUDIO).filter((f) => /\.(mp3|m4a)$/i.test(f))) {
     if (used.has(name)) continue;
     let tags = {};
-    try { tags = (await parseBuffer(fs.readFileSync(path.join(AUDIO, name)), { mimeType: "audio/mpeg" })).common } catch {}
-    const base = name.replace(/\.mp3$/i, "").replace(/^\d+[\s._-]+/, "");
+    try { tags = (await parseBuffer(fs.readFileSync(path.join(AUDIO, name)), { mimeType: mime(name) })).common } catch {}
+    const ext = path.extname(name).toLowerCase();
+    const base = name.replace(/\.(mp3|m4a)$/i, "").replace(/^\d+[\s._-]+/, "");
     const guess = base.split(/\s+[-–]\s+/);
     const izvajalec = tags.artist || (guess.length > 1 ? guess[0] : "");
     const title = tags.title || (guess.length > 1 ? guess.slice(1).join(" - ") : base);
     let slug = slugify(`${izvajalec} ${title}`), n = 2;
     while (fs.existsSync(path.join(DIR, slug + ".md"))) slug = slugify(`${izvajalec} ${title}`) + "-" + n++;
     // datoteko preimenuj v varno ime brez presledkov in šumnikov
-    const safe = slug + ".mp3";
+    const safe = slug + ext;
     if (safe !== name && !fs.existsSync(path.join(AUDIO, safe))) fs.renameSync(path.join(AUDIO, name), path.join(AUDIO, safe));
     const file = fs.existsSync(path.join(AUDIO, safe)) ? safe : name;
     fs.writeFileSync(path.join(DIR, slug + ".md"), matter.stringify("", { datoteka: "/audio/" + file, title, izvajalec, aktivno: true }));
@@ -81,7 +83,7 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
   // 1) MP3: trajanje + ID3
   try {
     const buf = await readAudio(d.datoteka);
-    const mm = await parseBuffer(buf, { mimeType: "audio/mpeg" });
+    const mm = await parseBuffer(buf, { mimeType: mime(d.datoteka) });
     if (mm.format.duration) d.trajanje = Math.round(mm.format.duration * 10) / 10;
     const c = mm.common;
     if (!d.title && c.title) d.title = c.title;
