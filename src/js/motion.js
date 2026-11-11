@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (pill && dot) { var eq = document.createElement('span'); eq.className = 'st-eq'; eq.setAttribute('aria-hidden', 'true'); eq.innerHTML = '<i></i><i></i><i></i><i></i>'; dot.parentNode.insertBefore(eq, dot.nextSibling) }
 
   /* --- 360°: rdeča črta --- */
-  var sec = $('.st-360-sec'), num = $('.st-360-num');
-  if (sec && num) {
+  var sec = $('.st-360-sec');
+  if (sec) {
     setTimeout(function () { sec.classList.add('st-go') }, 300);
   }
 
