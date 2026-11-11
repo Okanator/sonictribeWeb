@@ -64,3 +64,111 @@
   .st-eq i{animation:none}
   .st-360-claim:after{transition:none;transform:none}
 }
+
+/* ===================== Nova struktura prve strani ===================== */
+.st-btn{display:inline-flex;align-items:center;gap:.6em;padding:16px 26px;border-radius:999px;font-family:Frontage,sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:background .3s,color .3s,border-color .3s,transform .3s;border:1px solid currentColor;line-height:1.2}
+.st-btn-dark{background:#231F20;color:#fff;border-color:#231F20}
+.st-btn-dark:hover{background:#EC1C24;border-color:#EC1C24}
+.st-btn-line{color:#231F20}
+.st-btn-line:hover{background:#231F20;color:#fff}
+.st-btn-light{background:#fff;color:#231F20;border-color:#fff}
+.st-btn-light:hover{background:#231F20;color:#fff}
+
+/* Uvod */
+.st-intro{background:#fff;color:#231F20;overflow:hidden;padding:56px 0 64px}
+.st-intro-in{display:flex;flex-direction:column;align-items:center;text-align:center}
+.st-intro-logo{width:170px;height:auto;margin-bottom:28px}
+.st-intro-h{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,176px);line-height:.86;letter-spacing:.005em;margin:0;max-width:11ch;text-transform:uppercase}
+.st-intro-p{font-family:Antonio,sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(16px,1.5vw,20px);line-height:1.45;max-width:640px;margin:28px 0 0;color:#4E4A4B}
+.st-intro-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:32px}
+.st-wall{margin-top:56px;display:flex;flex-direction:column;gap:16px;transform:rotate(-2.5deg) scale(1.06)}
+.st-wall-row{overflow:hidden}
+.st-wall-track{display:flex;gap:16px;width:max-content;animation:st-wall 70s linear infinite}
+.st-wall-r1 .st-wall-track{animation-direction:reverse;animation-duration:85s}
+.st-wall:hover .st-wall-track{animation-play-state:paused}
+@keyframes st-wall{from{transform:translateX(0)}to{transform:translateX(-33.3333%)}}
+.st-wall-card{position:relative;flex:0 0 auto;width:clamp(180px,18vw,280px);aspect-ratio:4/3;overflow:hidden;background:#231F20;display:block}
+.st-wall-r1 .st-wall-card{aspect-ratio:3/4;width:clamp(140px,13vw,210px)}
+.st-wall-img{position:absolute;inset:0;background-size:cover;filter:grayscale(1) contrast(1.05);transition:filter .5s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.st-wall-card:hover .st-wall-img{filter:none;transform:scale(1.06)}
+.st-wall-t{position:absolute;left:12px;bottom:10px;right:12px;color:#fff;font-family:Frontage,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.6);text-align:left}
+
+/* Storitve */
+.st-sv-sec{background:#fff;color:#231F20;padding:110px 0 120px;border-bottom:1px solid #E4E4E6}
+.st-sv-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:56px}
+.st-sv-h{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(44px,6vw,96px);line-height:.9;margin:0;max-width:12ch;text-transform:uppercase}
+.st-sv-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #231F20}
+.st-sv-item{position:relative;padding:32px 28px 36px;border-right:1px solid #E4E4E6;display:flex;flex-direction:column;gap:14px;transition:background .4s,color .4s;scroll-margin-top:90px}
+.st-sv-item:last-child{border-right:0}
+.st-sv-item:hover,.st-sv-item:target{background:#231F20;color:#fff}
+.st-sv-num{font-family:Frontage,sans-serif;font-size:13px;letter-spacing:3px;color:#EC1C24}
+.st-sv-t{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(30px,2.6vw,40px);line-height:.95;margin:0}
+.st-sv-p{font-size:15px;line-height:1.65;margin:0;opacity:.8;flex-grow:1}
+.st-sv-cta{font-family:Frontage,sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:inherit;text-decoration:none;display:inline-flex;gap:8px;margin-top:8px}
+.st-sv-cta span{color:#EC1C24;transition:transform .3s}
+.st-sv-item:hover .st-sv-cta span{transform:translateX(6px)}
+
+/* Sodelovali smo z */
+.st-pt-sec{background:#fff;color:#231F20;padding:96px 0;border-bottom:1px solid #E4E4E6}
+.st-pt-k{text-align:center;margin-bottom:36px!important}
+.st-pt-list{list-style:none;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:center;max-width:1100px;row-gap:6px}
+.st-pt-list li{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.4vw,52px);line-height:1.1;padding:0 .35em;display:flex;align-items:center;gap:.7em;transition:color .3s}
+.st-pt-list li:not(:last-child):after{content:'/';color:#EC1C24;font-size:.6em}
+.st-pt-list li:hover{color:#EC1C24}
+.st-qt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;margin-top:72px}
+.st-qt{margin:0;border-top:1px solid #231F20;padding-top:24px}
+.st-qt blockquote{margin:0 0 18px;font-family:Antonio,sans-serif;font-size:22px;line-height:1.35}
+.st-qt figcaption{font-size:13px;letter-spacing:.04em;color:#4E4A4B}
+
+/* Velik poziv */
+.st-cta-sec{background:#EC1C24;color:#fff;padding:120px 0}
+.st-cta-in{display:flex;justify-content:space-between;align-items:flex-end;gap:48px;flex-wrap:wrap}
+.st-cta-h{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(72px,12vw,200px);line-height:.85;margin:0;text-transform:uppercase}
+.st-cta-side{max-width:420px;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+.st-cta-p{font-size:17px;line-height:1.6;margin:0}
+.st-cta-mail{color:#fff;font-family:Frontage,sans-serif;font-size:12px;letter-spacing:2.5px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5)}
+
+/* Plavajoči gumb */
+.st-fab{position:fixed;right:24px;bottom:24px;z-index:55;width:96px;height:96px;border-radius:50%;background:#231F20;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 10px 30px rgba(35,31,32,.25);transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .4s,background .3s}
+.st-fab svg{position:absolute;inset:0;width:100%;height:100%;animation:st-spin 14s linear infinite;fill:#fff;font-family:Frontage,sans-serif;font-size:10.5px;letter-spacing:2.2px}
+.st-fab-i{font-size:22px;line-height:1}
+.st-fab:hover{background:#EC1C24;transform:scale(1.08)}
+.st-fab.st-hide{opacity:0;transform:scale(.6);pointer-events:none}
+@keyframes st-spin{to{transform:rotate(360deg)}}
+
+@media (max-width:991px){
+  .st-sv-grid{grid-template-columns:repeat(2,1fr)}
+  .st-sv-item:nth-child(2){border-right:0}
+  .st-sv-item:nth-child(-n+2){border-bottom:1px solid #E4E4E6}
+}
+@media (max-width:767px){
+  .st-intro{padding:36px 0 44px}
+  .st-intro-logo{width:130px;margin-bottom:20px}
+  .st-sv-sec,.st-pt-sec,.st-cta-sec{padding:72px 0}
+  .st-sv-grid{grid-template-columns:1fr}
+  .st-sv-item{border-right:0!important;border-bottom:1px solid #E4E4E6;padding:26px 4px}
+  .st-fab{width:72px;height:72px;right:14px;bottom:14px}
+  .st-fab svg{font-size:13px}
+  .st-wall{margin-top:40px;gap:10px}
+  .st-wall-track{gap:10px}
+}
+@media (prefers-reduced-motion: reduce){
+  .st-wall-track,.st-fab svg{animation:none}
+}
+.st-sv-item.st-done{transition:background .4s,color .4s}
+
+/* popravek: kartice dosežkov na telefonu ne smejo biti širše od zaslona */
+.st-pl-items .w-dyn-items{grid-template-columns:minmax(0,1fr)!important}
+.st-pl-items .w-dyn-item,.st-pl-item{min-width:0;max-width:100%}
+.st-pl-big{overflow-wrap:break-word}
+@media (max-width:767px){.st-pl-big{font-size:clamp(40px,13vw,64px)!important}}
+/* storitve: oznaka nad naslovom */
+.st-sv-head{flex-direction:column;align-items:flex-start;gap:18px}
+@media (max-width:767px){
+  .st-pl-more{max-width:calc(100vw - 48px);white-space:normal;text-align:center;box-sizing:border-box}
+  .st-cta-h{font-size:clamp(56px,17vw,120px)}
+  .st-pt-list li{font-size:clamp(24px,7vw,34px)}
+  .st-shop-list{display:grid!important;grid-template-columns:1fr 1fr!important;gap:28px 14px!important}
+  .st-shop-name{font-size:15px!important}
+  .st-shop-row{flex-direction:column;align-items:flex-start!important;gap:8px}
+}

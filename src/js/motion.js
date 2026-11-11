@@ -1,4 +1,4 @@
-/* Gibanje na prvi strani: pojavljanje ob drsenju, 360° števec, tekoči trak, paralaksa, nagib kartic */
+/* Gibanje na prvi strani: pojavljanje ob drsenju, tekoči trak, paralaksa, nagib kartic, plavajoči gumb */
 document.addEventListener('DOMContentLoaded', function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -13,15 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var pill = $('.st-radio-pill'), dot = $('.st-radio-dot');
   if (pill && dot) { var eq = document.createElement('span'); eq.className = 'st-eq'; eq.setAttribute('aria-hidden', 'true'); eq.innerHTML = '<i></i><i></i><i></i><i></i>'; dot.parentNode.insertBefore(eq, dot.nextSibling) }
 
-  /* --- 360°: rdeča črta --- */
-  var sec = $('.st-360-sec');
-  if (sec) {
-    setTimeout(function () { sec.classList.add('st-go') }, 300);
-  }
-
   /* --- pojavljanje ob drsenju --- */
   var groups = [
-    ['.st-360-logo, .st-360-claim, .st-360-p', .12],
+    ['.st-intro-logo, .st-intro-h, .st-intro-p, .st-intro-btns, .st-wall-row', .12],
+    ['.st-sv-head, .st-sv-item', .1],
+    ['.st-pt-k, .st-pt-list li', .04],
+    ['.st-qt', .1],
+    ['.st-cta-h, .st-cta-side', .15],
     ['.st-kicker, .st-hero-p', 0],
     ['.st-art-card', .15],
     ['.st-vid-head, .st-vg-item', .12],
@@ -102,10 +100,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* --- gumbi z »magnetom« --- */
-    $$('.st-buy, .st-pl-more, .st-link-more').forEach(function (b) {
+    $$('.st-buy, .st-pl-more, .st-link-more, .st-btn').forEach(function (b) {
       b.classList.add('st-mag');
       b.addEventListener('mousemove', function (e) { var r = b.getBoundingClientRect(); b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * .25).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * .35).toFixed(1) + 'px)' });
       b.addEventListener('mouseleave', function () { b.style.transform = '' });
     });
+  }
+
+  /* --- plavajoči gumb »Pišite nam«: skrit na vrhu in ob kontaktih --- */
+  var fab = $('.st-fab');
+  if (fab && 'IntersectionObserver' in window) {
+    var vis = {};
+    var upd = function () { fab.classList.toggle('st-hide', Object.keys(vis).some(function (k) { return vis[k] })) };
+    var fo = new IntersectionObserver(function (es) { es.forEach(function (e) { vis[e.target.className] = e.isIntersecting }); upd() });
+    ['.st-intro-btns', '#pisite', '.st-bp-sec', '.st-footer'].forEach(function (q) { var el = $(q); if (el) fo.observe(el) });
   }
 });

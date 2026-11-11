@@ -5,6 +5,59 @@
   "seo_opis": "SonicTribe – agencija za glasbo. Booking izvajalcev za koncerte in dogodke, glasba in izvajalci za oglase in kampanje.",
   "trditev": "Agencija za glasbo.",
   "opis": "Booking izvajalcev za koncerte in dogodke. Glasba in izvajalci za oglase in kampanje.",
+  "uvod": {
+    "naslov": "Glasba za odre in znamke.",
+    "gumb_dogodek": "Organizirate dogodek?",
+    "gumb_kampanja": "Iščete glasbo za kampanjo?"
+  },
+  "storitve": [
+    {
+      "naslov": "Booking izvajalcev",
+      "opis": "Koncerti, festivali, poslovni dogodki. Pripeljemo naše izvajalce na vaš oder – od ponudbe do izvedbe na dan nastopa.",
+      "gumb": "Povpraševanje za nastop",
+      "email": "booking@sonictribe.net",
+      "zadeva": "Booking izvajalca"
+    },
+    {
+      "naslov": "Glasba za oglase in kampanje",
+      "opis": "Skladbe, izvajalci in nova glasba za znamke. Od ideje do skladbe, ki zaživi tudi zunaj oglasa – kot »Vse imam« za Lidl.",
+      "gumb": "Pogovorimo se o kampanji",
+      "email": "st@sonictribe.net",
+      "zadeva": "Glasba za kampanjo"
+    },
+    {
+      "naslov": "Management in PR",
+      "opis": "Kariera izvajalca od prvega singla do velikih odrov: strategija, izidi, mediji in javni nastopi.",
+      "gumb": "Pišite nam",
+      "email": "st@sonictribe.net",
+      "zadeva": "Management"
+    },
+    {
+      "naslov": "Izidi in merch",
+      "opis": "Vinilke, CD-ji in merch – od oblikovanja do prodaje na koncertih in v spletni trgovini.",
+      "gumb": "Pišite nam",
+      "email": "mngmt@sonictribe.net",
+      "zadeva": "Izidi in merch"
+    }
+  ],
+  "partnerji": [
+    "Lidl Slovenija",
+    "Mercator",
+    "Križanke",
+    "Kino Šiška",
+    "Cvetličarna",
+    "EMA",
+    "Val 202",
+    "Ljubljana Fashion Week",
+    "Melodije morja in sonca"
+  ],
+  "mnenja": [],
+  "poziv": {
+    "naslov": "Imate projekt?",
+    "besedilo": "Koncert, kampanja ali nekaj, česar še ni bilo. Povejte nam, kaj snujete.",
+    "gumb": "Pišite nam",
+    "email": "st@sonictribe.net"
+  },
   "radio_nowplaying_url": "",
   "radio_stream_url": "",
   "kontakt": {
@@ -20,9 +73,24 @@
     "email": "st@sonictribe.net"
   },
   "ekipa": [
-    { "vloga": "Direktorica", "ime": "Chantal van Mourik", "email": "chantal@sonictribe.net", "telefon": "" },
-    { "vloga": "Booking", "ime": "Janez Debeljak Johnny", "email": "booking@sonictribe.net", "telefon": "040 417 918" },
-    { "vloga": "Tehnika & merch", "ime": "Oskar Cafnik", "email": "mngmt@sonictribe.net", "telefon": "" }
+    {
+      "vloga": "Direktorica",
+      "ime": "Chantal van Mourik",
+      "email": "chantal@sonictribe.net",
+      "telefon": ""
+    },
+    {
+      "vloga": "Booking",
+      "ime": "Janez Debeljak Johnny",
+      "email": "booking@sonictribe.net",
+      "telefon": "040 417 918"
+    },
+    {
+      "vloga": "Tehnika & merch",
+      "ime": "Oskar Cafnik",
+      "email": "mngmt@sonictribe.net",
+      "telefon": ""
+    }
   ],
   "socialna_omrezja": {
     "facebook": "https://www.facebook.com/sonictribe.net",
