@@ -19,6 +19,6 @@ npm start      # http://localhost:8080
 
 ## Radio
 V /admin → **Radio** naložiš MP3 in vpišeš naslov + izvajalca. GitHub Action (»Obdelaj vsebino«) v nekaj minutah
-dopolni trajanje, album, leto, naslovnico (iz MP3 ali Apple Music) in povezave na Spotify, Apple Music, YouTube,
-Deezer, Tidal (prek song.link). Radio predvaja skladbe po uri – vsi poslušalci slišijo isto skladbo ob istem času.
+dopolni trajanje, album, leto, naslovnico (iz MP3 ali Apple Music) ter povezavi na Apple Music in Deezer.
+Spotify/YouTube/Tidal: prilepi povezavo, sicer gumb odpre iskanje skladbe. Radio predvaja skladbe po uri – vsi poslušalci slišijo isto skladbo ob istem času.
 Če kdaj dobite pravi pretok (stream), ga vpišete v Nastavitve strani → Radio in ima prednost.

@@ -104,7 +104,7 @@ collections:
     label_singular: Skladba
     description: >-
       Skladbe za SonicTribe Radio. Naloži MP3 (priporočeno 192 kbps) in vpiši naslov ter izvajalca –
-      trajanje, album, leto, naslovnica in povezave na Spotify, Apple Music … se v nekaj minutah dopolnijo same.
+      trajanje, album, leto, naslovnica ter povezavi na Apple Music in Deezer se v nekaj minutah dopolnijo same. Za Spotify, YouTube in Tidal prilepi povezavo, sicer gumb odpre iskanje skladbe.
       Kar vpišeš sam, ima prednost.
     folder: src/content/radio
     create: true
@@ -119,7 +119,6 @@ collections:
       - { name: leto, label: Leto, widget: string, required: false, hint: 'pusti prazno – dopolni se samo' }
       - { name: naslovnica, label: Naslovnica, widget: image, required: false, hint: 'pusti prazno – vzame se iz MP3 ali Apple Music' }
       - { name: aktivno, label: Na sporedu, widget: boolean, default: true }
-      - { name: povezava, label: 'Povezava (neobvezno)', widget: string, required: false, hint: 'katerakoli povezava na skladbo (npr. Spotify), če je samodejno iskanje ne najde – ostale platforme se dopolnijo same' }
       - { name: spotify, label: Spotify, widget: string, required: false }
       - { name: apple_music, label: Apple Music, widget: string, required: false }
       - { name: youtube, label: YouTube, widget: string, required: false }

@@ -1,7 +1,7 @@
 // Dopolni skladbe v src/content/radio/*.md:
 //  - trajanje (iz MP3), manjkajoči podatki iz ID3 oznak (naslov, izvajalec, album, leto, naslovnica)
 //  - manjkajoči podatki iz Apple Music kataloga (album, leto, naslovnica)
-//  - povezave do Spotify / Apple Music / YouTube / Deezer / Tidal (prek song.link)
+//  - povezave do Apple Music in Deezer (ostale platforme: iskanje skladbe)
 // Teče v GitHub Actions ob vsaki spremembi radia; ročno: node scripts/radio-meta.mjs
 import fs from "node:fs";
 import path from "node:path";
@@ -10,8 +10,6 @@ import { parseBuffer } from "music-metadata";
 
 const DIR = "src/content/radio";
 const IMG = "src/img/uploads";
-const PLATFORMS = { spotify: "spotify", apple_music: "appleMusic", youtube: "youtube", deezer: "deezer", tidal: "tidal" };
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
 
 async function getJson(url) {
@@ -71,7 +69,6 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
   // 2) Katalog + povezave (samo enkrat na skladbo)
   if (!d.povezave_iskane && d.izvajalec && d.title) {
     try {
-      let link = d.povezava || d.spotify || d.apple_music || d.deezer || d.tidal || d.youtube;
       const it = await itunes(d.izvajalec, d.title);
       if (it) {
         if (!d.album) d.album = it.collectionName;
@@ -83,16 +80,15 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
             d.naslovnica = `/img/uploads/radio-${slug}.jpg`;
           }
         }
-        if (!link) link = it.trackViewUrl;
       }
-      if (link) {
-        await sleep(7000); // song.link: največ 10 poizvedb na minuto
-        const o = await getJson(`https://api.song.link/v1-alpha.1/links?userCountry=SI&url=${encodeURIComponent(link)}`);
-        for (const [field, key] of Object.entries(PLATFORMS)) {
-          const u = o.linksByPlatform?.[key]?.url;
-          if (u && !d[field]) d[field] = u;
-        }
+      if (it && it.trackViewUrl && !d.apple_music) d.apple_music = it.trackViewUrl.replace(/[?&]uo=\d+/, "");
+      // Deezer: javni API brez ključa
+      if (!d.deezer) {
+        const dz = await getJson(`https://api.deezer.com/search?q=${encodeURIComponent(`artist:"${d.izvajalec}" track:"${d.title}"`)}`);
+        const hit = (dz.data || []).find((x) => norm(x.title).startsWith(norm(d.title)) && norm(x.artist?.name).includes(norm(d.izvajalec)));
+        if (hit) d.deezer = hit.link;
       }
+      // Spotify, YouTube, Tidal brez povezave: radio pokaže iskanje skladbe na tisti platformi
       d.povezave_iskane = true;
     } catch (e) {
       console.log("✖ povezave", slug, e.message);
