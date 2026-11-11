@@ -1,0 +1,58 @@
+/* ===== Gibanje (motion) – samo prva stran ===== */
+
+/* Napredek branja – tanka rdeča črta pod glavo */
+.st-progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:#EC1C24;transform-origin:0 50%;transform:scaleX(var(--p,0));z-index:2;pointer-events:none}
+
+/* Radio: ekvalizator, ko predvaja */
+.st-eq{display:none;align-items:flex-end;gap:2px;height:12px;flex-shrink:0}
+.st-eq i{display:block;width:3px;background:#EC1C24;border-radius:1px;animation:st-eq 1s ease-in-out infinite}
+.st-eq i:nth-child(2){animation-duration:.7s;animation-delay:-.3s}
+.st-eq i:nth-child(3){animation-duration:1.2s;animation-delay:-.6s}
+.st-eq i:nth-child(4){animation-duration:.85s;animation-delay:-.1s}
+@keyframes st-eq{0%,100%{height:3px}50%{height:12px}}
+.st-radio-pill.st-on .st-radio-dot{display:none}
+.st-radio-pill.st-on .st-eq{display:flex}
+
+/* 360° – štetje in rdeča črta pod napisom */
+.st-360-num{font-variant-numeric:tabular-nums}
+.st-360-claim{position:relative;padding-bottom:14px}
+.st-360-claim:after{content:'';position:absolute;left:50%;bottom:0;width:64px;height:2px;margin-left:-32px;background:#EC1C24;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.65,0,.35,1) 1.2s}
+.st-360-sec.st-go .st-360-claim:after{transform:scaleX(1)}
+
+/* Tekoči trak (marquee) */
+.st-mq{background:#231F20;color:#fff;overflow:hidden;white-space:nowrap;border-top:1px solid #231F20;padding:18px 0;position:relative}
+.st-mq-track{display:inline-flex;will-change:transform}
+.st-mq-item{font-family:Frontage,'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,54px);line-height:1;letter-spacing:.04em;text-transform:uppercase;padding:0 .5em;display:inline-flex;align-items:center;gap:.5em}
+.st-mq-item:after{content:'✦';color:#EC1C24;font-size:.5em}
+.st-mq-item.st-mq-out{color:transparent;-webkit-text-stroke:1px #fff}
+
+/* Pojavljanje ob drsenju */
+.st-rv{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.st-rv.st-in{opacity:1;transform:none}
+
+/* Dosežki: paralaksa fotografij */
+.st-pl-img{scale:1.14;translate:0 var(--py,0px);will-change:translate}
+
+/* Izvajalci: nagib + odsev */
+.st-art-card{transform-style:preserve-3d}
+.st-art-card .st-art-photo{position:relative;overflow:hidden}
+.st-art-card .st-art-photo:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.28),transparent 55%);opacity:0;transition:opacity .4s}
+.st-art-card:hover .st-art-photo:after{opacity:1}
+.st-art-card.st-tilt{transition:transform .15s ease-out,box-shadow .5s}
+
+/* Trgovina: dvig ob prehodu */
+.st-shop-item{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.st-shop-img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.st-shop-item{overflow:visible}
+.st-shop-item:hover{transform:translateY(-6px)}
+.st-shop-item:hover .st-shop-img{transform:scale(1.03)}
+
+/* Gumb s »magnetom« */
+.st-mag{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+
+@media (prefers-reduced-motion: reduce){
+  .st-rv{opacity:1!important;transform:none!important;transition:none!important}
+  .st-pl-img{translate:none!important;scale:1}
+  .st-eq i{animation:none}
+  .st-360-claim:after{transition:none;transform:none}
+}
