@@ -1,6 +1,6 @@
 ---
 datoteka: /audio/najlepse-bitje.mp3
-title: Najlepse Bitje
+title: Najlepše bitje
 izvajalec: ''
 aktivno: true
 trajanje: 188.5

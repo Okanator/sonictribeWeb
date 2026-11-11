@@ -1,6 +1,6 @@
 ---
 datoteka: /audio/lok-napet.mp3
-title: Lok Napet
+title: Lok napet
 izvajalec: ''
 aktivno: true
 trajanje: 195

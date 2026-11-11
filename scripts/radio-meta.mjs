@@ -37,6 +37,9 @@ async function itunes(artist, title) {
 
 const AUDIO = "src/audio";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// ID3 oznake v starem Windows kodiranju (cp1250) se preberejo kot latin1: »Ve\x9A« → »Veš«
+const CP1250 = { 0x8a: "Š", 0x8c: "Ś", 0x8d: "Ť", 0x8e: "Ž", 0x8f: "Ź", 0x9a: "š", 0x9c: "ś", 0x9d: "ť", 0x9e: "ž", 0x9f: "ź", 0xc8: "Č", 0xe8: "č", 0xc6: "Ć", 0xe6: "ć", 0xd0: "Đ", 0xf0: "đ" };
+const fixEnc = (t) => (typeof t === "string" && /[\x80-\x9f]/.test(t) ? t.replace(/[\x80-\x9f\xc6\xc8\xd0\xe6\xe8\xf0]/g, (c) => CP1250[c.charCodeAt(0)] || c) : t);
 const mime = (f) => (/\.(m4a|mp4|aac)$/i.test(f) ? "audio/mp4" : "audio/mpeg");
 const slugify = (s) => norm(s).replace(/ /g, "-").slice(0, 80) || "skladba";
 
@@ -60,12 +63,13 @@ if (fs.existsSync(AUDIO)) {
     if (used.has(name)) continue;
     let tags = {};
     try { tags = (await parseBuffer(fs.readFileSync(path.join(AUDIO, name)), { mimeType: mime(name) })).common } catch {}
+    for (const k of ["title", "artist", "album"]) tags[k] = fixEnc(tags[k]);
     const ext = path.extname(name).toLowerCase();
     // ime datoteke: odstrani številko skladbe, »(MP3)«, »320kbps«, oznake masteringa …
     const base = name.replace(/\.(mp3|m4a)$/i, "")
       .replace(/_.*$/, "")
       .replace(/\s*[\(\[]?(mp3|m4a|\d{3}\s*kbps|main|master(ed)?)[\)\]]?\s*/gi, " ")
-      .replace(/^\d+[\s._-]*/, "").trim();
+      .replace(/^\d+[\s._-]*/, "").replace(/(Enr)?V\d+$/, "").trim();
     const parts = base.split(/\s+[-–]\s+/).map((x) => x.trim()).filter(Boolean);
     const num = parts.findIndex((x, i) => i > 0 && /^\d+$/.test(x));
     const guessArtist = parts.length > 1 ? parts[0] : "";
@@ -93,6 +97,10 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
   const doc = matter(fs.readFileSync(file, "utf8"));
   const d = doc.data;
   const before = JSON.stringify(d);
+  for (const k of ["title", "izvajalec", "album"]) {
+    const f2 = fixEnc(d[k]);
+    if (f2 !== d[k]) { d[k] = f2; d.povezave_iskane = false }
+  }
   if (!d.datoteka) continue;
 
   // 1) MP3: trajanje + ID3
@@ -101,6 +109,7 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
     const mm = await parseBuffer(buf, { mimeType: mime(d.datoteka) });
     if (mm.format.duration) d.trajanje = Math.round(mm.format.duration * 10) / 10;
     const c = mm.common;
+    for (const k of ["title", "artist", "album"]) c[k] = fixEnc(c[k]);
     if (!d.title && c.title) d.title = c.title;
     if (!d.izvajalec && c.artist) d.izvajalec = c.artist;
     if (!d.album && c.album) d.album = c.album;
