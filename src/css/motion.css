@@ -185,3 +185,14 @@
 .st-vg-item:hover .st-yt{transform:scale(1.03)}
 .st-shop-item{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 @media (prefers-reduced-motion: reduce){.st-vg-item,.st-shop-item{translate:none!important;scale:none!important;opacity:1!important}}
+
+/* glava: socialna omrežja levo od menija */
+.st-hd-soc{display:flex;align-items:center;gap:6px;margin-left:auto;margin-right:4px}
+.st-soc{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#231F20;border:1px solid #E4E4E6;transition:background .25s,color .25s,border-color .25s,transform .25s}
+.st-soc svg{width:18px;height:18px}
+.st-soc:hover{background:#EC1C24;border-color:#EC1C24;color:#fff;transform:translateY(-2px)}
+@media (max-width:767px){
+  .st-hd-soc{display:none}
+  /* trgovina na telefonu: 2 vrstici = 4 izdelki */
+  .st-shop-list .w-dyn-item:nth-child(n+5){display:none}
+}

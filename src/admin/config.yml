@@ -75,6 +75,7 @@ collections:
       - { name: cena, label: Cena, widget: string, hint: 'npr. 30,00 €' }
       - { name: sumup, label: SumUp povezava, widget: string }
       - { name: slika, label: Slika, widget: image, required: false }
+      - { name: na_prvi_strani, label: 'Najbolj prodajano – prikaži na prvi strani (največ 8)', widget: boolean, required: false, default: false }
       - { name: vrstni_red, label: Vrstni red, widget: number, value_type: int, default: 99 }
 
   - name: izvajalci

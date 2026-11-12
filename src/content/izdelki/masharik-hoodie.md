@@ -4,5 +4,6 @@ format: "Merch · več velikosti"
 cena: "50,00 €"
 sumup: "https://sonictribe-shop.sumupstore.com/product/masharik-hoodie"
 slika: "/img/uploads/masharik-hoodie-slika.png"
+na_prvi_strani: true
 vrstni_red: 7
 ---
