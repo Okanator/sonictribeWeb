@@ -40,12 +40,23 @@ eleventyComputed:
   <section class="st-pj-part st-ig-sec">
     <div class="st-pj-wrap">
       <div class="st-pj-head"><h2 class="st-pj-h">Z Instagrama</h2><div class="st-pj-line"></div></div>
-      <div class="st-ig-grid">{% for u in s.instagram %}
-        <blockquote class="instagram-media" data-instgrm-permalink="{{ u }}" data-instgrm-version="14"><a href="{{ u }}" target="_blank" rel="noopener">Poglej objavo na Instagramu</a></blockquote>{% endfor %}
+      <div class="st-ig-consent">
+        <p>Objave so z Instagrama. Ob prikazu se naloži vsebina z Metinih strežnikov, ki lahko nastavi piškotke.</p>
+        <button type="button" class="st-ig-btn">Prikaži Instagram objave</button>
+      </div>
+      <div class="st-ig-grid" hidden>{% for u in s.instagram %}{% set clean = u.split('?')[0] %}
+        <blockquote class="instagram-media" data-instgrm-permalink="{{ clean }}" data-instgrm-version="14"><a href="{{ clean }}" target="_blank" rel="noopener">Poglej objavo na Instagramu</a></blockquote>{% endfor %}
       </div>
     </div>
   </section>
-  <script async src="https://www.instagram.com/embed.js"></script>
+  <script>
+  (function () {
+    var b = document.querySelector('.st-ig-btn'), g = document.querySelector('.st-ig-grid'), c = document.querySelector('.st-ig-consent');
+    function load() { try { localStorage.setItem('st-ig', '1') } catch (e) {} c.remove(); g.hidden = false; var sc = document.createElement('script'); sc.async = true; sc.src = 'https://www.instagram.com/embed.js'; document.body.appendChild(sc) }
+    if (b) b.addEventListener('click', load);
+    try { if (localStorage.getItem('st-ig') === '1') load() } catch (e) {}
+  })();
+  </script>
   {% endif %}
 
   <section class="st-pj-cta"><div class="st-pj-wrap st-pj-cta-in">
