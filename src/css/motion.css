@@ -178,3 +178,10 @@
   .st-sx-content>*{transform:none!important;opacity:1!important}
   .st-hx-down span{animation:none}
 }
+
+/* videospoti + trgovina: gibanje vezano na drsenje – brez CSS prehodov, da ni zamika */
+.st-vg-item,.st-shop-item{will-change:translate,scale,opacity}
+.st-vg-item .st-yt{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.st-vg-item:hover .st-yt{transform:scale(1.03)}
+.st-shop-item{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion: reduce){.st-vg-item,.st-shop-item{translate:none!important;scale:none!important;opacity:1!important}}

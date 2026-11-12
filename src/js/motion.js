@@ -18,8 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ['.st-ptx-in', 0],
     ['.st-kicker, .st-hero-p', 0],
     ['.st-art-card', .15],
-    ['.st-vid-head, .st-vg-item', .12],
-    ['.st-dos-head, .st-shop-item', .1],
+    ['.st-vid-head, .st-dos-head', 0],
     ['.st-bp-col, .st-tm-row', .08],
     ['.st-footer-wrap > *', .08]
   ];
@@ -47,6 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* --- paralaksa dosežkov --- */
   var imgs = $$('.st-pl-img');
+  /* videospoti in trgovina: gibanje, vezano neposredno na drsenje (brez zamika) */
+  var vids = $$('.st-vg-item'), shop = $$('.st-shop-item'), wide = window.matchMedia('(min-width: 768px)');
   var hx = $('.st-hx'), hxBg = $('.st-hx-bg'), hxIn = $('.st-hx-in');
   var cards = $$('.st-sx-card');
 
@@ -82,6 +83,32 @@ document.addEventListener('DOMContentLoaded', function () {
       inner.style.setProperty('--cin', enter.toFixed(3));
       if (img && r.bottom > 0 && r.top < vh) img.style.setProperty('--iy', ((r.top - top) * -.25).toFixed(1) + 'px');
     });
+    /* videospoti: izplavajo iz globine – levi stolpec z leve, desni z desne */
+    vids.forEach(function (v) {
+      var r = v.getBoundingClientRect();
+      if (r.top > vh + 50 || r.bottom < -50) return;
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * .45))), q = 1 - p;
+      var side = (r.left + r.width / 2) < innerWidth / 2 ? -1 : 1;
+      v.style.translate = (side * q * 60).toFixed(1) + 'px ' + (q * 30).toFixed(1) + 'px';
+      v.style.scale = (.9 + p * .1).toFixed(4);
+      v.style.opacity = (.15 + p * .85).toFixed(3);
+    });
+    /* trgovina: stolpci drsijo z različno hitrostjo (paralaksa po stolpcih) */
+    if (shop.length) {
+      var speeds = [.06, -.05, .09, -.03], xs = [];
+      shop.forEach(function (it) { var x = Math.round(it.offsetLeft); if (xs.indexOf(x) < 0) xs.push(x) });
+      xs.sort(function (a, b) { return a - b });
+      shop.forEach(function (it) {
+        var r = it.getBoundingClientRect();
+        if (r.top > vh + 200 || r.bottom < -200) return;
+        var col = xs.indexOf(Math.round(it.offsetLeft));
+        var k = wide.matches ? speeds[col % speeds.length] : 0;
+        var c = (r.top + r.height / 2 - vh / 2);
+        it.style.translate = '0 ' + (c * k).toFixed(1) + 'px';
+        var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * .3)));
+        it.style.opacity = (.2 + p * .8).toFixed(3);
+      });
+    }
     imgs.forEach(function (im) {
       var r = im.parentNode.getBoundingClientRect();
       if (r.bottom < -100 || r.top > vh + 100) return;
