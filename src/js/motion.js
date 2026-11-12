@@ -15,11 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* --- pojavljanje ob drsenju --- */
   var groups = [
-    ['.st-intro-logo, .st-intro-h, .st-intro-p, .st-intro-btns, .st-wall-row', .12],
-    ['.st-sv-head, .st-sv-item', .1],
-    ['.st-pt-k, .st-pt-list li', .04],
-    ['.st-qt', .1],
-    ['.st-cta-h, .st-cta-side', .15],
+    ['.st-ptx-in', 0],
     ['.st-kicker, .st-hero-p', 0],
     ['.st-art-card', .15],
     ['.st-vid-head, .st-vg-item', .12],
@@ -51,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* --- paralaksa dosežkov --- */
   var imgs = $$('.st-pl-img');
+  var hx = $('.st-hx'), hxBg = $('.st-hx-bg'), hxIn = $('.st-hx-in');
+  var cards = $$('.st-sx-card');
 
   var ticking = false;
   function onScroll() {
@@ -63,6 +61,27 @@ document.addEventListener('DOMContentLoaded', function () {
     if (bar) bar.style.setProperty('--p', H > 0 ? Math.min(1, scrollY / H) : 0);
     if (reduce) return;
     var vh = innerHeight;
+    /* uvod: ozadje počasneje, besedilo hitreje in zbledi */
+    if (hx) {
+      var hh = hx.offsetHeight, y0 = Math.min(scrollY, hh);
+      hxBg.style.setProperty('--hy', (y0 * .45).toFixed(1) + 'px');
+      hxBg.style.setProperty('--hs', (1.08 + y0 / hh * .12).toFixed(4));
+      if (hxIn) { hxIn.style.setProperty('--ty', (y0 * -.25).toFixed(1) + 'px'); hxIn.style.setProperty('--to', Math.max(0, 1 - y0 / (hh * .6)).toFixed(3)) }
+    }
+    /* kaj delamo: naslednja kartica prekrije prejšnjo, ta se pomanjša in potemni */
+    cards.forEach(function (c, i) {
+      var r = c.getBoundingClientRect(), H = r.height, top = 64;
+      var inner = c.firstElementChild, img = inner.querySelector('.st-sx-img');
+      var nx = cards[i + 1], cov = 0;
+      if (nx) { var nr = nx.getBoundingClientRect(); cov = Math.min(1, Math.max(0, (top + H - nr.top) / H)) }
+      inner.style.setProperty('--cs', (1 - cov * .08).toFixed(4));
+      inner.style.setProperty('--cb', (1 - cov * .6).toFixed(3));
+      inner.style.setProperty('--cr', (cov * 24).toFixed(1));
+      /* vstop besedila: ko kartica pripelje od spodaj */
+      var enter = Math.min(1, Math.max(0, (r.top - top) / (vh * .6)));
+      inner.style.setProperty('--cin', enter.toFixed(3));
+      if (img && r.bottom > 0 && r.top < vh) img.style.setProperty('--iy', ((r.top - top) * -.25).toFixed(1) + 'px');
+    });
     imgs.forEach(function (im) {
       var r = im.parentNode.getBoundingClientRect();
       if (r.bottom < -100 || r.top > vh + 100) return;
@@ -113,6 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var vis = {};
     var upd = function () { fab.classList.toggle('st-hide', Object.keys(vis).some(function (k) { return vis[k] })) };
     var fo = new IntersectionObserver(function (es) { es.forEach(function (e) { vis[e.target.className] = e.isIntersecting }); upd() });
-    ['.st-intro-btns', '#pisite', '.st-bp-sec', '.st-footer'].forEach(function (q) { var el = $(q); if (el) fo.observe(el) });
+    ['.st-hx-btns', '.st-bp-sec', '.st-footer'].forEach(function (q) { var el = $(q); if (el) fo.observe(el) });
   }
 });

@@ -8,7 +8,8 @@
   "uvod": {
     "naslov": "Glasba za odre in znamke.",
     "gumb_dogodek": "Organizirate dogodek?",
-    "gumb_kampanja": "Iščete glasbo za kampanjo?"
+    "gumb_kampanja": "Iščete glasbo za kampanjo?",
+    "slika": "/img/dosezki/batista-cadillac-krizanke-2026.jpg"
   },
   "storitve": [
     {
@@ -16,28 +17,36 @@
       "opis": "Koncerti, festivali, poslovni dogodki. Pripeljemo naše izvajalce na vaš oder – od ponudbe do izvedbe na dan nastopa.",
       "gumb": "Povpraševanje za nastop",
       "email": "booking@sonictribe.net",
-      "zadeva": "Booking izvajalca"
+      "zadeva": "Booking izvajalca",
+      "slika": "/img/dosezki/batista-cadillac-kino-siska-2022.jpg",
+      "fokus": "50% 45%"
     },
     {
       "naslov": "Glasba za oglase in kampanje",
       "opis": "Skladbe, izvajalci in nova glasba za znamke. Od ideje do skladbe, ki zaživi tudi zunaj oglasa – kot »Vse imam« za Lidl.",
       "gumb": "Pogovorimo se o kampanji",
       "email": "st@sonictribe.net",
-      "zadeva": "Glasba za kampanjo"
+      "zadeva": "Glasba za kampanjo",
+      "slika": "/img/uploads/mercator-ne-manjka-sanj-2024-fotografija.jpg",
+      "fokus": "50% 62%"
     },
     {
       "naslov": "Management in PR",
       "opis": "Kariera izvajalca od prvega singla do velikih odrov: strategija, izidi, mediji in javni nastopi.",
       "gumb": "Pišite nam",
       "email": "st@sonictribe.net",
-      "zadeva": "Management"
+      "zadeva": "Management",
+      "slika": "/img/izvajalci/masharik.jpg",
+      "fokus": "50% 40%"
     },
     {
       "naslov": "Izidi in merch",
       "opis": "Vinilke, CD-ji in merch – od oblikovanja do prodaje na koncertih in v spletni trgovini.",
       "gumb": "Pišite nam",
       "email": "mngmt@sonictribe.net",
-      "zadeva": "Izidi in merch"
+      "zadeva": "Izidi in merch",
+      "slika": "/img/uploads/mim_pravil_artwork4p1-3000.jpg",
+      "fokus": "50% 50%"
     }
   ],
   "partnerji": [
@@ -51,13 +60,6 @@
     "Ljubljana Fashion Week",
     "Melodije morja in sonca"
   ],
-  "mnenja": [],
-  "poziv": {
-    "naslov": "Imate projekt?",
-    "besedilo": "Koncert, kampanja ali nekaj, česar še ni bilo. Povejte nam, kaj snujete.",
-    "gumb": "Pišite nam",
-    "email": "st@sonictribe.net"
-  },
   "radio_nowplaying_url": "",
   "radio_stream_url": "",
   "kontakt": {

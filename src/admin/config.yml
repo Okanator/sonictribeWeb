@@ -146,6 +146,7 @@ collections:
             widget: object
             fields:
               - { name: naslov, label: Velik napis, widget: string }
+              - { name: slika, label: Fotografija v ozadju, widget: image }
               - { name: gumb_dogodek, label: 'Gumb 1 (vodi na 1. storitev)', widget: string }
               - { name: gumb_kampanja, label: 'Gumb 2 (vodi na 2. storitev)', widget: string }
           - label: 'Kaj delamo – storitve'
@@ -158,24 +159,9 @@ collections:
               - { name: gumb, label: Besedilo povezave, widget: string }
               - { name: email, label: E-naslov, widget: string }
               - { name: zadeva, label: Zadeva e-pošte, widget: string }
-          - { name: partnerji, label: 'Sodelovali smo z (imena)', widget: list, field: { name: ime, label: Ime, widget: string } }
-          - label: 'Mnenja strank (prikažejo se, ko dodaš vsaj eno)'
-            name: mnenja
-            widget: list
-            required: false
-            summary: '{{avtor}}'
-            fields:
-              - { name: citat, label: Citat, widget: text }
-              - { name: avtor, label: Ime in priimek, widget: string }
-              - { name: vloga, label: 'Vloga, podjetje', widget: string, required: false }
-          - label: 'Velik poziv (rdeč razdelek)'
-            name: poziv
-            widget: object
-            fields:
-              - { name: naslov, label: Naslov, widget: string }
-              - { name: besedilo, label: Besedilo, widget: text }
-              - { name: gumb, label: Gumb, widget: string }
-              - { name: email, label: E-naslov, widget: string }
+              - { name: slika, label: Fotografija, widget: image }
+              - { name: fokus, label: Izrez fotografije, widget: string, required: false, hint: 'npr. »50% 40%«' }
+          - { name: partnerji, label: 'Sodelovali smo z (diskretna vrstica na dnu)', widget: list, field: { name: ime, label: Ime, widget: string } }
           - { name: radio_nowplaying_url, label: 'Radio – AzuraCast »now playing« API', widget: string, required: false, hint: 'npr. https://radio.sonictribe.net/api/nowplaying/sonictribe' }
           - { name: radio_stream_url, label: 'Radio – naslov pretoka (stream)', widget: string, required: false }
           - label: Kontakt
