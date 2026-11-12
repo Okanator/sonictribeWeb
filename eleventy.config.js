@@ -11,6 +11,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.png": "favicon.png" });
   eleventyConfig.addPassthroughCopy({ "src/audio": "audio" });
+  eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
 
   // Collections (content edited in /admin)
   const sortBy = (key, dir = 1) => (a, b) =>
