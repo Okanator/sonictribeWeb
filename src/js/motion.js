@@ -51,20 +51,29 @@ document.addEventListener('DOMContentLoaded', function () {
   var hx = $('.st-hx'), hxBg = $('.st-hx-bg'), hxIn = $('.st-hx-in');
   var cards = $$('.st-sx-card');
 
-  var ticking = false;
+  /* gladko drsenje paralakse: učinki sledijo »mehkemu« položaju sy, ki se z inercijo približuje dejanskemu */
+  var sy = window.scrollY, running = false, lastT = 0;
+  function loop(t) {
+    var dt = lastT ? Math.min(3, (t - lastT) / 16.67) : 1; lastT = t;
+    var d = window.scrollY - sy;
+    sy = Math.abs(d) < .2 ? window.scrollY : sy + d * (1 - Math.pow(.88, dt));
+    paint();
+    if (sy !== window.scrollY) requestAnimationFrame(loop); else { running = false; lastT = 0 }
+  }
   function onScroll() {
     var y = window.scrollY, dy = y - lastY; lastY = y;
     if (dy) { dir = dy > 0 ? 1 : -1; vel = Math.min(40, vel + Math.abs(dy) * .25) }
-    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; paint() }) }
+    if (!running) { running = true; requestAnimationFrame(loop) }
   }
   function paint() {
+    var lag = window.scrollY - sy; /* + ko drsiš navzdol: elementi so »še nižje« kot v resnici */
     var H = document.documentElement.scrollHeight - innerHeight;
     if (bar) bar.style.setProperty('--p', H > 0 ? Math.min(1, scrollY / H) : 0);
     if (reduce) return;
     var vh = innerHeight;
     /* uvod: ozadje počasneje, besedilo hitreje in zbledi */
     if (hx) {
-      var hh = hx.offsetHeight, y0 = Math.min(scrollY, hh);
+      var hh = hx.offsetHeight, y0 = Math.min(Math.max(sy, 0), hh);
       hxBg.style.setProperty('--hy', (y0 * .45).toFixed(1) + 'px');
       hxBg.style.setProperty('--hs', (1.08 + y0 / hh * .12).toFixed(4));
       if (hxIn) { hxIn.style.setProperty('--ty', (y0 * -.25).toFixed(1) + 'px'); hxIn.style.setProperty('--to', Math.max(0, 1 - y0 / (hh * .6)).toFixed(3)) }
@@ -79,15 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
       inner.style.setProperty('--cb', (1 - cov * .6).toFixed(3));
       inner.style.setProperty('--cr', (cov * 24).toFixed(1));
       /* vstop besedila: ko kartica pripelje od spodaj */
-      var enter = Math.min(1, Math.max(0, (r.top - top) / (vh * .6)));
+      var rt = r.top + lag;
+      var enter = Math.min(1, Math.max(0, (rt - top) / (vh * .6)));
       inner.style.setProperty('--cin', enter.toFixed(3));
-      if (img && r.bottom > 0 && r.top < vh) img.style.setProperty('--iy', ((r.top - top) * -.25).toFixed(1) + 'px');
+      if (img && r.bottom > 0 && r.top < vh) img.style.setProperty('--iy', ((rt - top) * -.25).toFixed(1) + 'px');
     });
     /* videospoti: izplavajo iz globine – levi stolpec z leve, desni z desne */
     vids.forEach(function (v) {
       var r = v.getBoundingClientRect();
-      if (r.top > vh + 50 || r.bottom < -50) return;
-      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * .45))), q = 1 - p;
+      if (r.top > vh + 150 || r.bottom < -150) return;
+      var p = Math.min(1, Math.max(0, (vh - (r.top + lag)) / (vh * .45))), q = 1 - p;
       var side = (r.left + r.width / 2) < innerWidth / 2 ? -1 : 1;
       v.style.translate = (side * q * 60).toFixed(1) + 'px ' + (q * 30).toFixed(1) + 'px';
       v.style.scale = (.9 + p * .1).toFixed(4);
@@ -103,9 +113,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (r.top > vh + 200 || r.bottom < -200) return;
         var col = xs.indexOf(Math.round(it.offsetLeft));
         var k = wide.matches ? speeds[col % speeds.length] : 0;
-        var c = (r.top + r.height / 2 - vh / 2);
+        var c = (r.top + lag + r.height / 2 - vh / 2);
         it.style.translate = '0 ' + (c * k).toFixed(1) + 'px';
-        var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * .3)));
+        var p = Math.min(1, Math.max(0, (vh - (r.top + lag)) / (vh * .3)));
         it.style.opacity = (.2 + p * .8).toFixed(3);
       });
     }

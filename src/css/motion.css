@@ -196,3 +196,7 @@
   /* trgovina na telefonu: 2 vrstici = 4 izdelki */
   .st-shop-list .w-dyn-item:nth-child(n+5){display:none}
 }
+
+/* gladkejša paralaksa: lastna plast na grafični kartici */
+.st-hx-bg,.st-sx-img,.st-hx-in{backface-visibility:hidden;transform-style:flat}
+.st-sx-img{transform:translate3d(0,var(--iy,0px),0) scale(1.06)}
