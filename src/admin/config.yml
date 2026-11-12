@@ -4,9 +4,8 @@ backend:
   name: github
   repo: Okanator/sonictribeWeb
   branch: main
-  # prijava prek Netlify OAuth (deluje tudi, ko je stran gostovana drugje)
-  base_url: https://api.netlify.com
-  site_domain: sage-brigadeiros-515d59.netlify.app
+  # prijava prek lastne funkcije na Cloudflare Pages (functions/api/auth.js); naslov strani doda admin/index.html
+  auth_endpoint: api/auth
   commit_messages:
     create: 'Nov vnos: {{collection}} „{{slug}}“'
     update: 'Posodobitev: {{collection}} „{{slug}}“'
