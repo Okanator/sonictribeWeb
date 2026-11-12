@@ -2,6 +2,7 @@
 title: "Masharik"
 podnaslov: "Zlata piščal – novinec leta"
 fotografija: "/img/izvajalci/masharik.jpg"
+na_prvi_strani: true
 vrstni_red: 2
 spotify: "https://open.spotify.com/artist/76D2GVLB1YdYmqIZovuRCm"
 apple_music: "https://music.apple.com/si/search?term=Masharik"

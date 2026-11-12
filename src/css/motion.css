@@ -200,3 +200,52 @@
 /* gladkejša paralaksa: lastna plast na grafični kartici */
 .st-hx-bg,.st-sx-img,.st-hx-in{backface-visibility:hidden;transform-style:flat}
 .st-sx-img{transform:translate3d(0,var(--iy,0px),0) scale(1.06)}
+
+/* ===================== Izvajalci: večje kartice ===================== */
+.st-art-big{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;margin-top:48px}
+.st-art-big .st-art-card{position:relative;overflow:hidden;background:#231F20;border-radius:4px;aspect-ratio:3/4;display:block;color:#fff}
+.st-art-big .st-art-photo{position:absolute!important;inset:0;aspect-ratio:auto!important;scale:1.04;transition:scale 1.1s cubic-bezier(.2,.8,.2,1)}
+.st-art-big .st-art-card:hover .st-art-photo{scale:1.16}
+.st-art-big .st-art-card:before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(35,31,32,.85) 0%,rgba(35,31,32,.15) 45%,transparent 70%);transition:opacity .5s}
+.st-art-big .st-art-name{position:absolute;left:24px;right:24px;bottom:52px;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.4vw,72px);line-height:.9;letter-spacing:.01em;color:#fff!important;transition:transform .6s cubic-bezier(.2,.8,.2,1);padding:0}
+.st-art-big .st-art-more{position:absolute;left:24px;bottom:22px;z-index:2;font-family:Frontage,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.st-art-big .st-art-card:hover .st-art-name{transform:translateY(-8px)}
+.st-art-big .st-art-card:hover .st-art-more{opacity:1;transform:none}
+.st-art-big .st-art-card:hover{box-shadow:0 30px 60px rgba(35,31,32,.3)}
+.st-art-big .st-art-photo:after{z-index:1}
+@media (max-width:767px){
+  .st-art-big{grid-template-columns:1fr!important;gap:14px!important}
+  .st-art-big .st-art-card{aspect-ratio:4/5}
+  .st-art-big .st-art-more{opacity:1;transform:none}
+}
+
+/* ===================== Videospoti: vodoravni trak, ki ga premika drsenje ===================== */
+.st-vx{position:relative;background:#231F20;color:#fff}
+.st-vx-pin{position:sticky;top:64px;height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4vh,44px);overflow:hidden}
+.st-vx-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;width:100%}
+.st-vx-k{font-family:Frontage,sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;opacity:.7}
+.st-vx-h{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(44px,6vw,96px);line-height:.9;margin:0;text-transform:uppercase}
+.st-vx-track{display:flex;gap:28px;padding:0 max(24px,calc((100vw - 1360px)/2 + 24px));width:max-content;transform:translate3d(var(--vx,0px),0,0);will-change:transform}
+.st-vx-slide{position:relative;flex:0 0 auto;width:min(60vw,980px)}
+.st-vx-yt{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:4px;background:#000;cursor:pointer}
+.st-vx-yt img{width:100%;height:100%;object-fit:cover;display:block;scale:1.02;transition:scale .9s cubic-bezier(.2,.8,.2,1),filter .5s;filter:brightness(.8)}
+.st-vx-slide:hover .st-vx-yt img{scale:1.08;filter:brightness(1)}
+.st-vx-yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.st-vx-yt .st-yt-play{width:84px;height:84px;font-size:26px;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.st-vx-slide:hover .st-yt-play{transform:translate(-50%,-50%) scale(1.12)}
+.st-vx-cap{display:flex;align-items:baseline;gap:16px;margin-top:18px;flex-wrap:wrap}
+.st-vx-n{font-family:Frontage,sans-serif;font-size:12px;letter-spacing:3px;color:#EC1C24}
+.st-vx-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,2.6vw,42px);line-height:1}
+.st-vx-a{font-family:Antonio,sans-serif;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media (max-width:767px){
+  .st-vx{height:auto!important}
+  .st-vx-pin{position:relative;top:0;height:auto;padding:72px 0}
+  .st-vx-track{transform:none;width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .st-vx-track::-webkit-scrollbar{display:none}
+  .st-vx-slide{width:84vw;scroll-snap-align:center}
+}
+@media (prefers-reduced-motion: reduce){
+  .st-vx{height:auto!important}
+  .st-vx-pin{position:relative;top:0;height:auto;padding:80px 0}
+  .st-vx-track{transform:none!important;width:auto;overflow-x:auto}
+}

@@ -2,6 +2,7 @@
 title: "Regen"
 podnaslov: "Alterpop iz Ljubljane"
 fotografija: "/img/izvajalci/regen.jpg"
+na_prvi_strani: true
 vrstni_red: 3
 spotify: "https://open.spotify.com/artist/3Jte8jOLUCMG81lSzjExl0"
 apple_music: "https://music.apple.com/si/search?term=Regen"

@@ -2,6 +2,7 @@
 title: "Batista Cadillac"
 podnaslov: "Soul, funk in nalezljiva energija"
 fotografija: "/img/izvajalci/batista-cadillac.jpg"
+na_prvi_strani: false
 vrstni_red: 1
 spotify: "https://open.spotify.com/artist/5w2K4e2FXj7bbPao5T0z0R"
 apple_music: "https://music.apple.com/si/search?term=Batista%20Cadillac"

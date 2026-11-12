@@ -2,6 +2,7 @@
 title: "Gušti"
 podnaslov: "Original – od nekdaj"
 fotografija: "/img/izvajalci/gusti.jpg"
+na_prvi_strani: true
 vrstni_red: 4
 spotify: "https://open.spotify.com/artist/1Ov958RkMhOXlM5bVHyfeL"
 apple_music: "https://music.apple.com/si/search?term=Gu%C5%A1ti"

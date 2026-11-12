@@ -47,7 +47,15 @@ document.addEventListener('DOMContentLoaded', function () {
   /* --- paralaksa dosežkov --- */
   var imgs = $$('.st-pl-img');
   /* videospoti in trgovina: gibanje, vezano neposredno na drsenje (brez zamika) */
-  var vids = $$('.st-vg-item'), shop = $$('.st-shop-item'), wide = window.matchMedia('(min-width: 768px)');
+  var wide = window.matchMedia('(min-width: 768px)');
+  var vx = $('.st-vx'), vxTrack = $('.st-vx-track'), vxDist = 0;
+  function vxSize() {
+    if (!vx || !vxTrack) return;
+    if (!wide.matches || reduce) { vx.style.height = ''; vxDist = 0; vxTrack.style.removeProperty('--vx'); return }
+    vxDist = Math.max(0, vxTrack.scrollWidth - innerWidth);
+    vx.style.height = (innerHeight - 64 + vxDist) + 'px';
+  }
+  var vids = $$('.st-vg-item'), shop = $$('.st-shop-item');
   var hx = $('.st-hx'), hxBg = $('.st-hx-bg'), hxIn = $('.st-hx-in');
   var cards = $$('.st-sx-card');
 
@@ -93,6 +101,12 @@ document.addEventListener('DOMContentLoaded', function () {
       inner.style.setProperty('--cin', enter.toFixed(3));
       if (img && r.bottom > 0 && r.top < vh) img.style.setProperty('--iy', ((rt - top) * -.25).toFixed(1) + 'px');
     });
+    /* videospoti: navpično drsenje premika trak vodoravno */
+    if (vxDist > 0) {
+      var vr = vx.getBoundingClientRect(), span = vr.height - (vh - 64);
+      var vp = Math.min(1, Math.max(0, (64 - (vr.top + lag)) / span));
+      vxTrack.style.setProperty('--vx', (-vp * vxDist).toFixed(1) + 'px');
+    }
     /* videospoti: izplavajo iz globine – levi stolpec z leve, desni z desne */
     vids.forEach(function (v) {
       var r = v.getBoundingClientRect();
@@ -127,7 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function () { if (mq) half = mq.scrollWidth / 2; paint() });
+  window.addEventListener('resize', function () { if (mq) half = mq.scrollWidth / 2; vxSize(); paint() });
+  window.addEventListener('load', function () { vxSize(); paint() });
+  vxSize();
   paint();
 
   if (mq && !reduce) {

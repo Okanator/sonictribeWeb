@@ -90,6 +90,7 @@ collections:
       - { name: podnaslov, label: Podnaslov, widget: string, required: false }
       - { name: fotografija, label: Fotografija, widget: image }
       - { name: fokus, label: Izrez fotografije, widget: string, required: false, hint: 'kateri del fotografije ostane viden, npr. »50% 40%« (vodoravno, navpično)' }
+      - { name: na_prvi_strani, label: 'Prikaži na prvi strani (»Smo vaš …«)', widget: boolean, required: false, default: true }
       - { name: vrstni_red, label: Vrstni red, widget: number, value_type: int, default: 99 }
       - { name: body, label: O izvajalcu, widget: markdown, buttons: ['bold', 'italic', 'link'] }
       - { name: spotify, label: Spotify, widget: string, required: false }
