@@ -59,22 +59,32 @@ document.addEventListener('DOMContentLoaded', function () {
   var hx = $('.st-hx'), hxBg = $('.st-hx-bg'), hxIn = $('.st-hx-in');
   var cards = $$('.st-sx-card');
 
-  /* gladko drsenje paralakse: učinki sledijo »mehkemu« položaju sy, ki se z inercijo približuje dejanskemu */
-  var sy = window.scrollY, running = false, lastT = 0;
-  function loop(t) {
-    var dt = lastT ? Math.min(3, (t - lastT) / 16.67) : 1; lastT = t;
-    var d = window.scrollY - sy;
-    sy = Math.abs(d) < .2 ? window.scrollY : sy + d * (1 - Math.pow(.88, dt));
-    paint();
-    if (sy !== window.scrollY) requestAnimationFrame(loop); else { running = false; lastT = 0 }
+  /* gladko drsenje cele strani (Lenis): stran in učinki se premikajo skupaj, brez poskakovanja */
+  var lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ lerp: .09, wheelMultiplier: 1, smoothWheel: true });
+    window.stLenis = lenis;
+    /* meni / radio panel odprt: ustavi drsenje strani */
+    new MutationObserver(function () { document.body.classList.contains('st-lock') ? lenis.stop() : lenis.start() }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    $$('.st-menu, .st-np').forEach(function (el) { el.setAttribute('data-lenis-prevent', '') });
+    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf) })(performance.now());
+    /* sidrne povezave (meni, gumbi) gladko, z odmikom za glavo */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]'); if (!a) return;
+      var id = a.getAttribute('href'); if (id.length < 2) return;
+      var el = document.getElementById(id.slice(1)); if (!el) return;
+      e.preventDefault(); lenis.scrollTo(el, { offset: -64, duration: 1.4 });
+      if (history.replaceState) history.replaceState(null, '', id);
+    });
   }
+  var ticking = false;
   function onScroll() {
     var y = window.scrollY, dy = y - lastY; lastY = y;
     if (dy) { dir = dy > 0 ? 1 : -1; vel = Math.min(40, vel + Math.abs(dy) * .25) }
-    if (!running) { running = true; requestAnimationFrame(loop) }
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; paint() }) }
   }
   function paint() {
-    var lag = window.scrollY - sy; /* + ko drsiš navzdol: elementi so »še nižje« kot v resnici */
+    var lag = 0, sy = window.scrollY;
     var H = document.documentElement.scrollHeight - innerHeight;
     if (bar) bar.style.setProperty('--p', H > 0 ? Math.min(1, scrollY / H) : 0);
     if (reduce) return;

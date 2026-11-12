@@ -256,3 +256,10 @@
 /* gumbi so statični – ne drsijo in ne bledijo */
 .st-sx-content .st-btn{transform:none!important;opacity:1!important}
 .st-btn.st-mag{transform:none!important}
+
+/* Lenis – gladko drsenje */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-smooth iframe{pointer-events:auto}
