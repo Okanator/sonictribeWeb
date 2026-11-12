@@ -102,9 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var inner = c.firstElementChild, img = inner.querySelector('.st-sx-img');
       var nx = cards[i + 1], cov = 0;
       if (nx) { var nr = nx.getBoundingClientRect(); cov = Math.min(1, Math.max(0, (top + H - nr.top) / H)) }
-      inner.style.setProperty('--cs', (1 - cov * .08).toFixed(4));
-      inner.style.setProperty('--cb', (1 - cov * .6).toFixed(3));
-      inner.style.setProperty('--cr', (cov * 24).toFixed(1));
+      /* sklenjeno: kartica se ne pomanjša in ne potemni – prekrita fotografija samo rahlo zdrsne navzgor */
+      inner.style.setProperty('--cov', cov.toFixed(4));
       /* vstop besedila: ko kartica pripelje od spodaj */
       var rt = r.top + lag;
       var enter = Math.min(1, Math.max(0, (rt - top) / (vh * .6)));

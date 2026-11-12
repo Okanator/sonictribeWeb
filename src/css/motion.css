@@ -263,3 +263,13 @@ html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
 .lenis.lenis-stopped{overflow:hidden}
 .lenis.lenis-smooth iframe{pointer-events:auto}
+
+/* Kaj delamo: sklenjene kartice čez celo širino, brez pomanjšanja, zaobljenih robov in sivine */
+.st-sx-inner{transform:none!important;filter:none!important;border-radius:0!important}
+.st-sx-card + .st-sx-card .st-sx-inner{box-shadow:0 -1px 0 #231F20}
+.st-sx-img{transform:translate3d(0,calc(var(--iy,0px) - var(--cov,0) * 12vh),0) scale(1.06)!important}
+/* besedilo kartic je vedno polno vidno (brez sivega prelivanja) in na sredini zaslona, da ga naslednja kartica prekrije šele na koncu */
+.st-sx-content>*{transform:none!important;opacity:1!important}
+.st-sx-inner{align-items:center!important}
+.st-sx-content{padding-bottom:0!important;padding-top:40px}
+@media (max-width:767px){.st-sx-inner{align-items:flex-end!important}.st-sx-content{padding-bottom:48px!important}}
