@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* --- gumbi z »magnetom« --- */
-    $$('.st-buy, .st-pl-more, .st-link-more, .st-btn').forEach(function (b) {
+    $$('.st-buy, .st-pl-more, .st-link-more').forEach(function (b) {
       b.classList.add('st-mag');
       b.addEventListener('mousemove', function (e) { var r = b.getBoundingClientRect(); b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * .25).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * .35).toFixed(1) + 'px)' });
       b.addEventListener('mouseleave', function () { b.style.transform = '' });

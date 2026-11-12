@@ -249,3 +249,10 @@
   .st-vx-pin{position:relative;top:0;height:auto;padding:80px 0}
   .st-vx-track{transform:none!important;width:auto;overflow-x:auto}
 }
+
+/* Kaj delamo: vsaka kartica ostane na zaslonu dlje, preden jo prekrije naslednja */
+.st-sx-card{margin-bottom:55vh}
+.st-sx-card:last-of-type{margin-bottom:0}
+/* gumbi so statični – ne drsijo in ne bledijo */
+.st-sx-content .st-btn{transform:none!important;opacity:1!important}
+.st-btn.st-mag{transform:none!important}
