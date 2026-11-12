@@ -1,0 +1,56 @@
+---
+pagination:
+  data: site.storitve
+  size: 1
+  alias: s
+permalink: "/storitve/{{ s.slug }}/"
+layout: base.njk
+pageCss: /css/pages.css
+scripts: ["/js/pages.js"]
+eleventyComputed:
+  title: "{{ s.naslov }} – SonicTribe"
+  description: "{{ s.opis }}"
+  fotografija: "{{ s.slika }}"
+---
+<div class="st-pj st-sv-page">
+  <header class="st-pj-bar"><div class="st-pj-bar-in">
+    <a href="/" class="st-pj-home"><img src="/img/brand/sonictribe-logo-black.png" alt="SonicTribe" class="st-pj-logo"></a>
+    <div class="st-pj-sec">Kaj delamo</div>
+    <a href="/#kajdelamo" class="st-pj-back">← Vse storitve</a>
+  </div></header>
+
+  <section class="st-pj-hero">
+    <img src="{{ s.slika }}" alt="{{ s.naslov }}" class="st-pj-hero-img" style="object-position:{{ s.fokus or '50% 50%' }}">
+    <div class="st-pj-hero-in">
+      <div class="st-pj-date">SonicTribe</div>
+      <div class="st-pj-big">{{ s.naslov }}</div>
+      <h1 class="st-pj-title">{{ s.opis }}</h1>
+    </div>
+  </section>
+
+  <section class="st-pj-part">
+    <div class="st-pj-wrap">
+      <div class="st-pj-head"><h2 class="st-pj-h">Kako delamo</h2><div class="st-pj-line"></div></div>
+      <div class="st-pj-rt"><div class="w-richtext">{{ s.besedilo | md | safe }}</div></div>
+      {% if s.vkljucuje and s.vkljucuje.length %}<ul class="st-sv-list">{% for v in s.vkljucuje %}<li>{{ v }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </section>
+
+  {% if s.instagram and s.instagram.length %}
+  <section class="st-pj-part st-ig-sec">
+    <div class="st-pj-wrap">
+      <div class="st-pj-head"><h2 class="st-pj-h">Z Instagrama</h2><div class="st-pj-line"></div></div>
+      <div class="st-ig-grid">{% for u in s.instagram %}
+        <blockquote class="instagram-media" data-instgrm-permalink="{{ u }}" data-instgrm-version="14"><a href="{{ u }}" target="_blank" rel="noopener">Poglej objavo na Instagramu</a></blockquote>{% endfor %}
+      </div>
+    </div>
+  </section>
+  <script async src="https://www.instagram.com/embed.js"></script>
+  {% endif %}
+
+  <section class="st-pj-cta"><div class="st-pj-wrap st-pj-cta-in">
+    <div class="st-pj-cta-t">{{ s.gumb }}</div>
+    <a href="mailto:{{ s.email }}?subject={{ s.zadeva | urlencode }}" class="st-pj-cta-btn">Pišite nam</a>
+    <a href="mailto:{{ s.email }}" class="st-pj-cta-link">{{ s.email }}</a>
+  </div></section>
+</div>

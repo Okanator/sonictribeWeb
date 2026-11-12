@@ -26,10 +26,12 @@ scripts: ["/js/site.js", "/js/lenis.min.js", "/js/motion.js"]
       <div class="st-sx-img" style="background-image:url('{{ v.slika }}');background-position:{{ v.fokus or '50% 50%' }}"></div>
       <div class="st-sx-shade"></div>
       <div class="st-wrap st-sx-content">
-        <div class="st-sx-num">0{{ loop.index }} <i>/ 0{{ site.storitve.length }}</i></div>
         <h2 class="st-sx-t">{{ v.naslov }}</h2>
         <p class="st-sx-p">{{ v.opis }}</p>
-        <a href="mailto:{{ v.email }}?subject={{ v.zadeva | urlencode }}" class="st-btn st-btn-light">{{ v.gumb }} →</a>
+        <div class="st-sx-btns">
+          <a href="/storitve/{{ v.slug }}/" class="st-btn st-btn-light">Več o storitvi →</a>
+          <a href="mailto:{{ v.email }}?subject={{ v.zadeva | urlencode }}" class="st-sx-mail">{{ v.gumb }}</a>
+        </div>
       </div>
     </div>
   </article>

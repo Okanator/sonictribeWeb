@@ -20,3 +20,12 @@
 @media (max-width:991px){.st-pj-big{font-size:96px!important}.st-pj-h{font-size:42px!important}.st-pj-cta-t{font-size:64px!important}.st-ar-wrap{flex-direction:column;gap:48px}.st-ar-side{flex:none!important}.st-ar-name{font-size:110px!important}}
 @media (max-width:600px){.st-pj-big{font-size:64px!important}.st-pj-artist{font-size:22px!important}.st-pj-title{font-size:19px!important}.st-pj-h{font-size:34px!important}.st-pj-head{gap:20px!important}.st-pj-part,.st-pj-cta,.st-ar-main{padding-top:64px!important;padding-bottom:64px!important}.st-pj-sec{display:none}.st-pj-cta-t{font-size:48px!important}.st-pj-hero,.st-ar-hero{min-height:76vh!important}.st-ar-name{font-size:72px!important}.st-ar-sub{font-size:18px!important}.st-ar-h{font-size:34px!important}}
 @media (prefers-reduced-motion:reduce){.st-pj-hero-img,.st-ar-img,.st-pj-hero-in>*,.st-ar-hero-in>*{animation:none}.st-pj-line{transform:none}}
+
+/* Podstrani storitev */
+.st-sv-list{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;max-width:900px}
+.st-sv-list li{padding:18px 0 18px 30px;border-top:1px solid #E4E4E6;position:relative;font-size:17px;line-height:1.5}
+.st-sv-list li:before{content:'\25B6';position:absolute;left:0;top:21px;color:#EC1C24;font-size:10px}
+.st-ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;align-items:start}
+.st-ig-grid .instagram-media{margin:0!important;min-width:0!important;width:100%!important;max-width:540px!important}
+.st-sv-page .st-pj-title{max-width:720px}
+@media (max-width:600px){.st-sv-list{grid-template-columns:1fr}}

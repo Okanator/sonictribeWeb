@@ -19,7 +19,16 @@
       "email": "booking@sonictribe.net",
       "zadeva": "Booking izvajalca",
       "slika": "/img/uploads/booking-koncert.jpg",
-      "fokus": "60% 55%"
+      "fokus": "60% 55%",
+      "slug": "booking",
+      "besedilo": "Naši izvajalci igrajo na koncertih, festivalih, poslovnih dogodkih in zasebnih praznovanjih. Pri vsakem nastopu skrbimo za celoten proces – od prve ponudbe do zadnjega takta na odru – da se vi lahko posvetite svojemu dogodku.",
+      "vkljucuje": [
+        "Ponudba in pogodba za nastop",
+        "Tehnični in gostinski rider",
+        "Usklajevanje z organizatorjem in tehniko",
+        "Koordinacija na dan nastopa"
+      ],
+      "instagram": []
     },
     {
       "naslov": "Glasba za oglase in kampanje",
@@ -28,7 +37,16 @@
       "email": "st@sonictribe.net",
       "zadeva": "Glasba za kampanjo",
       "slika": "/img/uploads/mercator-ne-manjka-sanj-2024-fotografija.jpg",
-      "fokus": "50% 62%"
+      "fokus": "50% 62%",
+      "slug": "glasba-za-kampanje",
+      "besedilo": "Znamkam in agencijam pomagamo najti glasbo, ki nosi zgodbo. Predlagamo obstoječe skladbe naših izvajalcev, uredimo pravice ali z izvajalci ustvarimo novo skladbo za kampanjo – kot »Vse imam« za Lidl ali »Ne manjka sanj« za Mercator.",
+      "vkljucuje": [
+        "Izbor skladb in izvajalcev za kampanjo",
+        "Ureditev pravic za uporabo glasbe",
+        "Nova skladba po meri",
+        "Nastopi izvajalcev v kampanji"
+      ],
+      "instagram": []
     },
     {
       "naslov": "Management in PR",
@@ -37,7 +55,16 @@
       "email": "st@sonictribe.net",
       "zadeva": "Management",
       "slika": "/img/izvajalci/masharik.jpg",
-      "fokus": "50% 40%"
+      "fokus": "50% 40%",
+      "slug": "management-in-pr",
+      "besedilo": "Z izvajalci gradimo dolgoročne kariere. Skupaj načrtujemo izide, nastope in komunikacijo z mediji ter občinstvom, da glasba pride do ljudi, ki jim je namenjena.",
+      "vkljucuje": [
+        "Strategija kariere in načrt izidov",
+        "Odnosi z mediji",
+        "Družbena omrežja in komunikacija",
+        "Povezovanje z organizatorji in partnerji"
+      ],
+      "instagram": []
     },
     {
       "naslov": "Izidi",
@@ -46,7 +73,16 @@
       "email": "st@sonictribe.net",
       "zadeva": "Izidi in distribucija",
       "slika": "/img/uploads/mim_pravil_artwork4p1-3000.jpg",
-      "fokus": "50% 50%"
+      "fokus": "50% 50%",
+      "slug": "izidi",
+      "besedilo": "Izvajalcem pomagamo, da njihova glasba izide in jim prinaša prihodek. Skrbimo za distribucijo, kolektiranje pravic in fizične izdaje, od prvega singla do vinilke.",
+      "vkljucuje": [
+        "Distribucija na vse glasbene platforme",
+        "Kolektiranje avtorskih in sorodnih pravic",
+        "Fizične izdaje: vinil in CD",
+        "Druge založniške storitve"
+      ],
+      "instagram": []
     }
   ],
   "partnerji": [
