@@ -276,3 +276,19 @@ html.lenis,html.lenis body{height:auto}
 .st-sx-btns{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:6px}
 .st-sx-mail{color:#fff;font-family:Frontage,sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:3px;transition:color .2s,border-color .2s}
 .st-sx-mail:hover{color:#EC1C24;border-color:#EC1C24}
+
+/* radio: glasnost in naslednja skladba */
+.st-vol{display:flex;align-items:center;gap:12px;margin-top:10px;max-width:320px}
+.st-vol-mute{background:none;border:1px solid #6B6567;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:16px;line-height:1;flex-shrink:0;transition:border-color .2s,background .2s}
+.st-vol-mute:hover{border-color:#EC1C24;background:#EC1C24}
+.st-vol-range{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:2px;background:linear-gradient(90deg,#EC1C24 var(--v,100%),#4A4547 var(--v,100%));outline:none;cursor:pointer}
+.st-vol-range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:0;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.st-vol-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:0}
+.st-np-next-h{margin:14px 0 0;color:#A7A9AC;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-family:Frontage}
+.st-np-next{display:flex;align-items:center;gap:12px}
+.st-np-next-art{width:44px;height:44px;border-radius:3px;background-size:cover;background-position:center;flex-shrink:0}
+.st-np-next-t{display:flex;flex-direction:column;line-height:1.3}
+.st-np-next-t b{font-weight:600;font-size:15px;color:#fff}
+.st-np-next-t i{font-style:normal;font-size:13px;color:#A7A9AC}
+.st-np-next:empty,.st-np-next:empty~*{}
+.st-np-next-h:has(+ .st-np-next:empty){display:none}
