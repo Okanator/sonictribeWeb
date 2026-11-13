@@ -13,9 +13,7 @@ scripts: ["/js/pages.js"]
   <section class="st-ar-hero">
     {% if fotografija %}<img src="{{ fotografija }}" alt="{{ title }}" class="st-ar-img" style="object-position:{{ fokus or '50% 40%' }}">{% endif %}
     <div class="st-ar-hero-in">
-      <div class="st-ar-kick">SonicTribe izvajalec</div>
       <h1 class="st-ar-name">{{ title }}</h1>
-      {% if podnaslov %}<div class="st-ar-sub">{{ podnaslov }}</div>{% endif %}
     </div>
   </section>
 
