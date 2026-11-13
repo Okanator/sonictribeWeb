@@ -316,3 +316,7 @@ html.lenis,html.lenis body{height:auto}
   .st-vx-slide{width:auto!important}
   .st-vx-slide:hover{transform:none;box-shadow:none}
 }
+/* videospoti: brez povečave ob prehodu, naslov na sredini */
+.st-vx-slide:hover{transform:none!important;box-shadow:none!important}
+.st-vx-head{justify-content:center!important;text-align:center}
+.st-vx-h{margin:0 auto}

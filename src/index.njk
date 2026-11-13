@@ -39,11 +39,11 @@ scripts: ["/js/site.js", "/js/lenis.min.js", "/js/motion.js"]
 </section>
 <section class="st-hero" id="smo"><div class="st-wrap st-hero-wrap"><p class="st-kicker">Glasbena agencija 360°</p><h1 class="st-hero-h">Smo vaš <span class="st-rot"><span class="st-rot-in"><span class="st-rot-w">management</span><span class="st-rot-w">booking</span><span class="st-rot-w">PR</span><span class="st-rot-w">merch</span><span class="st-rot-w">management</span></span></span></h1><p class="st-hero-p">SonicTribe ni založba. Smo kreativni in strateški partner, ki umetnikom pomaga razviti njihov potencial in ustvariti trajno, uspešno kariero.</p><div class="st-art-grid st-art-big" id="izvajalci">{% for a in collections.izvajalci %}{% if a.data.na_prvi_strani !== false %}<a href="{{ a.url }}" class="st-art-card"><div class="st-art-photo" style="background-image:url('{{ a.data.fotografija }}');background-position:{{ a.data.fokus or '50% 40%' }}"></div><span class="st-art-name">{{ a.data.title }}</span><span class="st-art-more">Spoznaj izvajalca →</span></a>{% endif %}{% endfor %}</div></div></section><section class="st-vx" id="videospoti">
   <div class="st-vx-in">
-    <div class="st-wrap st-vx-head"><span class="st-vx-k">Videospoti</span><h2 class="st-vx-h">Najnovejši videospoti</h2></div>
+    <div class="st-wrap st-vx-head"><h2 class="st-vx-h">Videospoti</h2></div>
     <div class="st-vx-track">{% for v in collections.videospoti | head(6) %}{% set id = v.data.youtube | ytid %}
       <div class="st-vx-slide">
         <div class="st-yt st-vx-yt" data-yt="{{ id }}"><img src="https://i.ytimg.com/vi/{{ id }}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ id }}/hqdefault.jpg'" alt="{{ v.data.izvajalec }} – {{ v.data.title }}" loading="lazy"><button type="button" class="st-yt-play" aria-label="Predvajaj videospot {{ v.data.title }}">▶</button></div>
-        <div class="st-vx-cap"><span class="st-vx-n">0{{ loop.index }}</span><span class="st-vx-t">{{ v.data.title }}</span><span class="st-vx-a">{{ v.data.izvajalec }}</span></div>
+        <div class="st-vx-cap"><span class="st-vx-t">{{ v.data.title }}</span><span class="st-vx-a">{{ v.data.izvajalec }}</span></div>
       </div>{% endfor %}
     </div>
   </div>
