@@ -292,3 +292,27 @@ html.lenis,html.lenis body{height:auto}
 .st-np-next-t i{font-style:normal;font-size:13px;color:#A7A9AC}
 .st-np-next:empty,.st-np-next:empty~*{}
 .st-np-next-h:has(+ .st-np-next:empty){display:none}
+
+/* ===================== Videospoti: velika mreža, okna se stikajo ===================== */
+.st-vx{height:auto!important;padding:96px 0 0}
+.st-vx-in{display:flex;flex-direction:column;gap:40px}
+.st-vx-track{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0!important;padding:0!important;width:100%!important;transform:none!important}
+.st-vx-slide{position:relative;width:auto!important;z-index:1;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,z-index 0s .5s}
+.st-vx-slide:hover{transform:scale(1.1);z-index:5;box-shadow:0 30px 80px rgba(0,0,0,.6);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s,z-index 0s}
+.st-vx-yt{border-radius:0!important}
+.st-vx-yt img{filter:brightness(.62)!important;scale:1!important}
+.st-vx-slide:hover .st-vx-yt img{filter:brightness(1)!important}
+.st-vx-cap{position:absolute;left:0;right:0;bottom:0;margin:0!important;padding:18px 22px;z-index:2;pointer-events:none;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);display:flex;flex-direction:column;align-items:flex-start;gap:2px!important;transition:opacity .3s}
+.st-vx-n{display:none}
+.st-vx-t{font-size:clamp(22px,2vw,32px)!important}
+.st-vx-a{font-size:12px!important}
+.st-vx-yt .st-yt-play{width:64px;height:64px;font-size:20px;opacity:.85}
+.st-vx-slide:has(.st-yt-on) .st-vx-cap{opacity:0}
+.st-vx-slide:has(.st-yt-on){transform:none;box-shadow:none}
+@media (max-width:991px){.st-vx-track{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:767px){
+  .st-vx{padding-top:64px}
+  .st-vx-track{grid-template-columns:1fr;overflow:visible!important}
+  .st-vx-slide{width:auto!important}
+  .st-vx-slide:hover{transform:none;box-shadow:none}
+}

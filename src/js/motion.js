@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var vx = $('.st-vx'), vxTrack = $('.st-vx-track'), vxDist = 0;
   function vxSize() {
     if (!vx || !vxTrack) return;
-    if (!wide.matches || reduce) { vx.style.height = ''; vxDist = 0; vxTrack.style.removeProperty('--vx'); return }
+    vx.style.height = ''; vxDist = 0; vxTrack.style.removeProperty('--vx'); return; /* videospoti so zdaj navadna mreža */
     vxDist = Math.max(0, vxTrack.scrollWidth - innerWidth);
     vx.style.height = (innerHeight - 64 + vxDist) + 'px';
   }
