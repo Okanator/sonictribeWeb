@@ -2,6 +2,8 @@ import markdownIt from "markdown-it";
 
 const md = markdownIt({ html: true, breaks: true, linkify: true });
 
+const ymd = (d) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d || ""));
+
 export default function (eleventyConfig) {
   // Static files copied as-is
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
@@ -30,12 +32,21 @@ export default function (eleventyConfig) {
     api.getFilteredByGlob("src/content/izvajalci/*.md").sort(sortBy("vrstni_red", 1))
   );
 
+  eleventyConfig.addCollection("izidi", (api) =>
+    api
+      .getFilteredByGlob("src/content/izidi/*.md")
+      .filter((p) => p.data.prikazano !== false)
+      .sort((a, b) => ymd(b.data.datum).localeCompare(ymd(a.data.datum)))
+  );
+
   eleventyConfig.addCollection("radio", (api) =>
     api
       .getFilteredByGlob("src/content/radio/*.md")
       .filter((p) => p.data.datoteka && p.data.aktivno !== false && p.data.trajanje > 0)
       .sort((a, b) => (a.fileSlug > b.fileSlug ? 1 : -1))
   );
+
+  eleventyConfig.addFilter("ymd", ymd);
 
   // Filters
   eleventyConfig.addFilter("md", (s) => (s ? md.render(String(s)) : ""));

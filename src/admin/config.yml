@@ -131,6 +131,30 @@ collections:
       - { name: trajanje, label: 'Trajanje (sekunde, samodejno)', widget: number, value_type: float, required: false }
       - { name: povezave_iskane, label: 'Povezave že iskane (izklopi za ponovno iskanje)', widget: boolean, required: false, default: false }
 
+  - name: izidi
+    label: Katalog izidov
+    label_singular: Izid
+    description: >-
+      Prikazano na podstrani Izidi, od najnovejšega. Izide, ki jih je na Apple Music izdal SonicTribe, se dodajo samodejno
+      vsak ponedeljek (ali ročno na GitHubu: Actions → Katalog izidov → Run workflow). Ostale dodaš ročno.
+      Če izid ne sodi v katalog, izklopi »Prikazano«.
+    folder: src/content/izidi
+    create: true
+    slug: '{{fields.izvajalec}}-{{fields.title}}'
+    sortable_fields: ['datum', 'izvajalec', 'title']
+    summary: '{{datum}} · {{izvajalec}} – {{title}} ({{tip}})'
+    fields:
+      - { name: title, label: Naslov, widget: string }
+      - { name: izvajalec, label: Izvajalec, widget: string }
+      - { name: tip, label: Tip, widget: select, options: ['Album', 'EP', 'Single'] }
+      - { name: datum, label: Datum izida, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD. MM. YYYY', time_format: false }
+      - { name: naslovnica, label: Naslovnica, widget: image, required: false }
+      - { name: povezava, label: 'Povezava (npr. smartlink ali Spotify)', widget: string, required: false, hint: 'če je prazno, vodi na Apple Music' }
+      - { name: apple_music, label: Apple Music, widget: string, required: false }
+      - { name: prikazano, label: Prikazano v katalogu, widget: boolean, default: true }
+      - { name: apple_id, label: Apple ID, widget: hidden, required: false }
+      - { name: skladb, label: Število skladb, widget: hidden, required: false }
+
   - name: nastavitve
     label: Nastavitve strani
     editor: { preview: false }

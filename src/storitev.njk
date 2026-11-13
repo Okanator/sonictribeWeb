@@ -36,6 +36,25 @@ eleventyComputed:
     </div>
   </section>
 
+  {% if s.slug == 'izidi' and collections.izidi.length %}
+  <section class="st-pj-part st-kat-sec">
+    <div class="st-pj-wrap">
+      <div class="st-pj-head"><h2 class="st-pj-h">Katalog izidov</h2><div class="st-pj-line"></div></div>
+      <div class="st-kat">
+      {% for r in collections.izidi %}{% set y = (r.data.datum | ymd).slice(0, 4) %}{% set prev = collections.izidi[loop.index0 - 1] %}
+        {% if loop.first or (prev.data.datum | ymd).slice(0, 4) != y %}<div class="st-kat-y">{{ y }}</div>{% endif %}
+        <a class="st-kat-item" href="{{ r.data.povezava or r.data.apple_music or '#' }}" target="_blank" rel="noopener">
+          <span class="st-kat-img"{% if r.data.naslovnica %} style="background-image:url('{{ r.data.naslovnica }}')"{% endif %}></span>
+          <span class="st-kat-t">{{ r.title }}</span>
+          <span class="st-kat-a">{{ r.data.izvajalec }}</span>
+          <span class="st-kat-m">{{ r.data.tip }}</span>
+        </a>
+      {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
   {% if s.instagram and s.instagram.length %}
   <section class="st-pj-part st-ig-sec">
     <div class="st-pj-wrap">

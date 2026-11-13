@@ -1,0 +1,27 @@
+name: Katalog izidov (Apple Music)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"
+permissions:
+  contents: write
+concurrency: obdelava
+jobs:
+  katalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: node scripts/katalog.mjs
+      - name: Shrani spremembe
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "sonictribe-bot"
+            git config user.email "st@sonictribe.net"
+            git add -A
+            git commit -m "Samodejno dopolnjeno: katalog izidov"
+            git pull --rebase
+            git push
+          fi
