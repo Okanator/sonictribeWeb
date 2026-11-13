@@ -45,7 +45,7 @@ eleventyComputed:
         {% if loop.first or (prev.data.datum | ymd).slice(0, 4) != y %}<div class="st-kat-y">{{ y }}</div>{% endif %}
         <a class="st-kat-item" href="{{ r.data.povezava or r.data.apple_music or '#' }}" target="_blank" rel="noopener">
           <span class="st-kat-img"{% if r.data.naslovnica %} style="background-image:url('{{ r.data.naslovnica }}')"{% endif %}></span>
-          <span class="st-kat-t">{{ r.title }}</span>
+          <span class="st-kat-t">{{ r.data.title }}</span>
           <span class="st-kat-a">{{ r.data.izvajalec }}</span>
           <span class="st-kat-m">{{ r.data.tip }}</span>
         </a>
