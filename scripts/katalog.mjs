@@ -24,6 +24,10 @@ for (const d of ["src/content/izvajalci", "src/content/radio"]) {
     if (a) artists.add(String(a).split(/\s*(?:feat\.|ft\.|&|,| x )\s*/i)[0].trim());
   }
 }
+try {
+  const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
+  for (const a of site.katalog_izvajalci || []) if (a) artists.add(String(a).trim());
+} catch {}
 const known = new Set(fs.readdirSync(DIR).filter((f) => f.endsWith(".md")).map((f) => {
   const x = matter(fs.readFileSync(path.join(DIR, f), "utf8")).data; return String(x.apple_id || "");
 }));
@@ -33,10 +37,14 @@ let added = 0;
 for (const name of artists) {
   try {
     const s = await getJson(`https://itunes.apple.com/search?country=SI&entity=musicArtist&limit=5&term=${encodeURIComponent(name)}`);
-    const art = (s.results || []).find((r) => norm(r.artistName) === norm(name));
-    if (!art) { console.log("? izvajalca ni na Apple Music:", name); continue }
-    const l = await getJson(`https://itunes.apple.com/lookup?country=SI&entity=album&limit=200&id=${art.artistId}`);
-    const albums = (l.results || []).filter((r) => r.wrapperType === "collection" && LABEL.test(r.copyright || ""));
+    const arts = (s.results || []).filter((r) => norm(r.artistName) === norm(name));
+    if (!arts.length) { console.log("? izvajalca ni na Apple Music:", name); continue }
+    let albums = [];
+    for (const art of arts) {
+      const l = await getJson(`https://itunes.apple.com/lookup?country=SI&entity=album&limit=200&id=${art.artistId}`);
+      albums = albums.concat((l.results || []).filter((r) => r.wrapperType === "collection" && LABEL.test(r.copyright || "")));
+    }
+    console.log(name, "→", albums.length, "izidov SonicTribe");
     for (const a of albums) {
       const id = String(a.collectionId);
       if (known.has(id) || ignored.has(id)) continue;

@@ -193,6 +193,7 @@ collections:
               - { name: besedilo, label: 'Podstran – besedilo', widget: markdown, buttons: ['bold', 'italic', 'link'] }
               - { name: vkljucuje, label: 'Podstran – kaj vključuje (alineje)', widget: list, required: false, field: { name: alineja, label: Alineja, widget: string } }
               - { name: instagram, label: 'Podstran – izbrane objave (Instagram ali Facebook video)', widget: list, required: false, hint: 'povezava na Instagram objavo/reel ali Facebook video/reel – tudi z drugih profilov', field: { name: url, label: Povezava, widget: string } }
+          - { name: katalog_izvajalci, label: 'Katalog izidov – dodatni izvajalci (poleg tistih iz Izvajalcev in Radia)', widget: list, required: false, field: { name: ime, label: Ime, widget: string } }
           - { name: partnerji, label: 'Sodelovali smo z (diskretna vrstica na dnu)', widget: list, field: { name: ime, label: Ime, widget: string } }
           - { name: radio_nowplaying_url, label: 'Radio – AzuraCast »now playing« API', widget: string, required: false, hint: 'npr. https://radio.sonictribe.net/api/nowplaying/sonictribe' }
           - { name: radio_stream_url, label: 'Radio – naslov pretoka (stream)', widget: string, required: false }
