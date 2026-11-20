@@ -320,3 +320,9 @@ html.lenis,html.lenis body{height:auto}
 .st-vx-slide:hover{transform:none!important;box-shadow:none!important}
 .st-vx-head{justify-content:center!important;text-align:center}
 .st-vx-h{margin:0 auto}
+
+/* Kaj delamo: kartica je vedno vsaj tako visoka kot celotno okno (tudi ko se na telefonu skrije naslovna vrstica,
+   v Brave ipd.), zato se med karticami nikoli ne vidi ozadje */
+.st-sx-card{height:calc(100vh - 64px);height:calc(100lvh - 64px);min-height:0;max-height:none}
+.st-sx-inner{min-height:100%}
+.st-sx{background:#000}
