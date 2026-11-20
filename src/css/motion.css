@@ -253,6 +253,7 @@
 /* Kaj delamo: vsaka kartica ostane na zaslonu dlje, preden jo prekrije naslednja */
 .st-sx-card{margin-bottom:55vh}
 .st-sx-card:last-of-type{margin-bottom:0}
+.st-sx-end{height:55vh}
 /* gumbi so statični – ne drsijo in ne bledijo */
 .st-sx-content .st-btn{transform:none!important;opacity:1!important}
 .st-btn.st-mag{transform:none!important}
@@ -330,4 +331,3 @@ html.lenis,html.lenis body{height:auto}
 .st-sx-card{contain:layout paint}
 .st-sx-inner{will-change:auto}
 .st-sx-img{will-change:transform;backface-visibility:hidden}
-.st-sx-card:last-of-type{margin-bottom:55vh!important}

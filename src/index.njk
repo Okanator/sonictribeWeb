@@ -36,6 +36,7 @@ scripts: ["/js/site.js", "/js/lenis.min.js", "/js/motion.js"]
     </div>
   </article>
   {% endfor %}
+  <div class="st-sx-end" aria-hidden="true"></div>
 </section>
 <section class="st-hero" id="smo"><div class="st-wrap st-hero-wrap"><p class="st-kicker">Glasbena agencija 360°</p><h1 class="st-hero-h">Smo vaš <span class="st-rot"><span class="st-rot-in"><span class="st-rot-w">management</span><span class="st-rot-w">booking</span><span class="st-rot-w">PR</span><span class="st-rot-w">merch</span><span class="st-rot-w">management</span></span></span></h1><p class="st-hero-p">SonicTribe ni založba. Smo kreativni in strateški partner, ki umetnikom pomaga razviti njihov potencial in ustvariti trajno, uspešno kariero.</p><div class="st-art-grid st-art-big" id="izvajalci">{% for a in collections.izvajalci %}{% if a.data.na_prvi_strani !== false %}<a href="{{ a.url }}" class="st-art-card"><div class="st-art-photo" style="background-image:url('{{ a.data.fotografija }}');background-position:{{ a.data.fokus or '50% 40%' }}"></div><span class="st-art-name">{{ a.data.title }}</span><span class="st-art-more">Spoznaj izvajalca →</span></a>{% endif %}{% endfor %}</div></div></section><section class="st-vx" id="videospoti">
   <div class="st-vx-in">
