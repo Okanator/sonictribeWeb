@@ -330,3 +330,4 @@ html.lenis,html.lenis body{height:auto}
 .st-sx-card{contain:layout paint}
 .st-sx-inner{will-change:auto}
 .st-sx-img{will-change:transform;backface-visibility:hidden}
+.st-sx-card:last-of-type{margin-bottom:55vh!important}
