@@ -58,11 +58,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var vids = $$('.st-vg-item'), shop = $$('.st-shop-item');
   var hx = $('.st-hx'), hxBg = $('.st-hx-bg'), hxIn = $('.st-hx-in');
   var cards = $$('.st-sx-card');
+  cards.forEach(function (c) { c._in = c.firstElementChild; c._img = c._in.querySelector('.st-sx-img') });
 
   /* gladko drsenje cele strani (Lenis): stran in učinki se premikajo skupaj, brez poskakovanja */
   var lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new Lenis({ lerp: .09, wheelMultiplier: 1, smoothWheel: true });
+    lenis = new Lenis({ lerp: .075, wheelMultiplier: 1, smoothWheel: true });
     window.stLenis = lenis;
     /* meni / radio panel odprt: ustavi drsenje strani */
     new MutationObserver(function () { document.body.classList.contains('st-lock') ? lenis.stop() : lenis.start() }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
@@ -97,18 +98,15 @@ document.addEventListener('DOMContentLoaded', function () {
       if (hxIn) { hxIn.style.setProperty('--ty', (y0 * -.25).toFixed(1) + 'px'); hxIn.style.setProperty('--to', Math.max(0, 1 - y0 / (hh * .6)).toFixed(3)) }
     }
     /* kaj delamo: naslednja kartica prekrije prejšnjo, ta se pomanjša in potemni */
+    /* najprej vse meritve, nato vsi zapisi – brskalnik ne računa postavitve večkrat na sliko */
+    var top = 64, rs = cards.map(function (c) { return c.getBoundingClientRect() });
     cards.forEach(function (c, i) {
-      var r = c.getBoundingClientRect(), H = r.height, top = 64;
-      var inner = c.firstElementChild, img = inner.querySelector('.st-sx-img');
-      var nx = cards[i + 1], cov = 0;
-      if (nx) { var nr = nx.getBoundingClientRect(); cov = Math.min(1, Math.max(0, (top + H - nr.top) / H)) }
-      /* sklenjeno: kartica se ne pomanjša in ne potemni – prekrita fotografija samo rahlo zdrsne navzgor */
-      inner.style.setProperty('--cov', cov.toFixed(4));
-      /* vstop besedila: ko kartica pripelje od spodaj */
+      var r = rs[i], H = r.height, cov = 0;
+      if (rs[i + 1]) cov = Math.min(1, Math.max(0, (top + H - rs[i + 1].top) / H));
       var rt = r.top + lag;
-      var enter = Math.min(1, Math.max(0, (rt - top) / (vh * .6)));
-      inner.style.setProperty('--cin', enter.toFixed(3));
-      if (img && r.bottom > 0 && r.top < vh) img.style.setProperty('--iy', ((rt - top) * -.25).toFixed(1) + 'px');
+      if (r.bottom < -50 || r.top > vh + 50) return;
+      c._in.style.setProperty('--cov', cov.toFixed(4));
+      if (c._img) c._img.style.setProperty('--iy', ((rt - top) * -.25).toFixed(1) + 'px');
     });
     /* videospoti: navpično drsenje premika trak vodoravno */
     if (vxDist > 0) {

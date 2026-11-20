@@ -9,7 +9,7 @@
     "naslov": "Glasba za odre in znamke.",
     "gumb_dogodek": "Organizirate dogodek?",
     "gumb_kampanja": "Iščete glasbo za kampanjo?",
-    "slika": "/img/dosezki/batista-cadillac-krizanke-2026.jpg"
+    "slika": "/img/dosezki/batista-cadillac-krizanke-2026-web.jpg"
   },
   "storitve": [
     {
@@ -18,7 +18,7 @@
       "gumb": "Povpraševanje za nastop",
       "email": "booking@sonictribe.net",
       "zadeva": "Booking izvajalca",
-      "slika": "/img/uploads/booking-koncert.jpg",
+      "slika": "/img/uploads/booking-koncert-web.jpg",
       "fokus": "60% 55%",
       "slug": "booking",
       "besedilo": "Naši izvajalci igrajo na koncertih, festivalih, poslovnih dogodkih in zasebnih praznovanjih. Pri vsakem nastopu skrbimo za celoten proces – od prve ponudbe do zadnjega takta na odru – da se vi lahko posvetite svojemu dogodku.",
@@ -38,7 +38,7 @@
       "gumb": "Pogovorimo se o kampanji",
       "email": "st@sonictribe.net",
       "zadeva": "Glasba za kampanjo",
-      "slika": "/img/uploads/mercator-ne-manjka-sanj-2024-fotografija.jpg",
+      "slika": "/img/uploads/mercator-ne-manjka-sanj-2024-fotografija-web.jpg",
       "fokus": "50% 62%",
       "slug": "glasba-za-kampanje",
       "besedilo": "Znamkam in agencijam pomagamo najti glasbo, ki nosi zgodbo. Predlagamo obstoječe skladbe naših izvajalcev, uredimo pravice ali z izvajalci ustvarimo novo skladbo za kampanjo – kot »Vse imam« za Lidl, »Ne manjka sanj« za Mercator ali projekt 200 let Laško.",
@@ -77,7 +77,7 @@
       "gumb": "Pogovorimo se o izidu",
       "email": "st@sonictribe.net",
       "zadeva": "Izidi in distribucija",
-      "slika": "/img/uploads/mim_pravil_artwork4p1-3000.jpg",
+      "slika": "/img/uploads/mim_pravil_artwork4p1-3000-web.jpg",
       "fokus": "50% 50%",
       "slug": "izidi",
       "besedilo": "Izvajalcem pomagamo, da njihova glasba izide in jim prinaša prihodek. Skrbimo za distribucijo, kolektiranje pravic in fizične izdaje, od prvega singla do vinilke.",
